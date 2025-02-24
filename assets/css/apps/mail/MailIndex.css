@@ -1,1 +1,88 @@
  /* mail index  */
+ /* ======= GENERAL STYLES ======= */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f6f8fc;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ======= CONTAINER LAYOUT ======= */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* ======= SIDEBAR ======= */
+.sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 20px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 24px;
+    transition: background 0.2s ease;
+}
+
+.sidebar button span {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.sidebar button:hover {
+    background: #eaf1fb;
+}
+
+/* ======= MAIL SECTION ======= */
+.mail-list-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Header (Search & Filters) */
+.mail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+/* Mail List */
+.mail-list {
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}

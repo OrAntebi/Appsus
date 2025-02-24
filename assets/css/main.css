@@ -11,3 +11,155 @@
 @import './apps/note/NoteIndex.css';
 @import './apps/mail/MailIndex.css';
 @import './apps/mail/MailList.css';
+
+
+/* main styling */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Full Page Layout */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f6f8fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Sidebar (Gmail-Like Left Menu) */
+.sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 20px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 24px;
+    transition: background 0.2s ease;
+}
+
+.sidebar button span {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.sidebar button:hover {
+    background: #eaf1fb;
+}
+
+/* Mail List Layout */
+.mail-list-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.mail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+/* Mail List */
+.mail-list {
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual Mail */
+.mail-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.mail-preview:hover {
+    background: #f2f6fc;
+}
+
+.mail-preview.read {
+    color: #606060;
+}
+
+.mail-preview.unread {
+    font-weight: bold;
+}
+
+/* Buttons & Icons */
+.icon-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: #eaf1fb;
+}
+
+/* Mail Preview Buttons */
+.mail-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.star-btn {
+    font-size: 20px;
+    color: gold;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

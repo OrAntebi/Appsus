@@ -1,0 +1,18 @@
+.navigation {
+    height: 100%;
+    
+    box-shadow: 0 16px 10px 0 rgba(0, 0, 0, .14), 0 11px 18px 0 rgba(0, 0, 0, .12), 0 13px 5px -1px rgba(0, 0, 0, .2);
+
+    li {
+        justify-content: start;
+    }
+
+    img {
+        width: auto;
+    }
+
+    .nav-item:has(a.active) {
+        border-radius: 0 25px 25px 0;
+        background-color: var(--nav-active-bg);
+    }
+}

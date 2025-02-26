@@ -1,0 +1,17 @@
+/* Font Awesome */
+
+@font-face {
+    font-family: Fa;
+    src: url('../../font/Font-Awesome/fa-solid-900.ttf');
+}
+
+.fa {
+    font-family: Fa;
+}
+
+.fa::before {
+    content: '';
+}
+
+/* ------- */
+

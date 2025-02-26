@@ -11,18 +11,20 @@ import { MailCompose } from './apps/mail/pages/MailCompose.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 
 export function RootCmp() {
-    return <Router>
-        <section className="root-cmp">
-            <AppHeader />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/mail" element={<MailIndex />} />
+    return (
+        <Router>
+            <section className="root-cmp">
+                <AppHeader />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/mail" element={<MailIndex />} />
                 <Route path="/mail/:mailId" element={<MailDetails />} />  
                 <Route path="/mail/compose" element={<MailCompose />} /> 
-                <Route path="/note" element={<NoteIndex />} />
-            </Routes>
-            <UserMsg />
-        </section>
-    </Router>
+                    <Route path="/note/*" element={<NoteIndex />} />
+                </Routes>
+                <UserMsg />
+            </section>
+        </Router>
+    )
 }

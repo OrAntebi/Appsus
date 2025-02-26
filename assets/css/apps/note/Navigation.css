@@ -1,0 +1,40 @@
+.navigation {
+    height: calc(100vh - 170px);
+
+    box-shadow: 0 16px 10px 0 rgba(0, 0, 0, .14), 0 11px 18px 0 rgba(0, 0, 0, .12), 0 13px 5px -1px rgba(0, 0, 0, .2);
+
+    li {
+
+        .nav-icon {
+            width: auto;
+            padding: 1em;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            align-self: center;
+            width: 100%;
+            padding: 1em 10em 1em 1em;
+        }
+
+    }
+
+    .nav-item:has(a.active) {
+        border-radius: 0 100vh 100vh 0;
+        background-color: var(--nav-active-bg);
+
+    }
+}
+
+.navigation.menuIsLock .nav-link {
+    max-width: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: 400ms ease;
+}
+
+.navigation:not(.menuIsLock) .nav-link {
+    opacity: 1;
+    transition: 200ms ease;
+}

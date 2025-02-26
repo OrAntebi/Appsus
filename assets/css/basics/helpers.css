@@ -1,3 +1,5 @@
+/* FLEX */
+
 .flex {
     display: flex;
 }
@@ -18,6 +20,28 @@
     justify-content: space-between;
 }
 
+/* GRID */
+
 .grid {
     display: grid;
+}
+
+/* ACTIVE NAV */
+
+.active {
+    font-weight: bold;
+}
+
+/* LIST */
+
+.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* FULL HEIGHT AND WIDTH */
+.full-size {
+    height: webkit-fill-available;
+    width: webkit-fill-available;
 }

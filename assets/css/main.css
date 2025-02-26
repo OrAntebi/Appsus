@@ -36,9 +36,6 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f6f8fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: auto;
     overflow: hidden;
 }

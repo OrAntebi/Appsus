@@ -1,8 +1,10 @@
 .app-header {
+    min-height: 80px;
+    overflow: visible;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 1em;
-    background: var(--bg1);
+    padding: 10px;
 }
 
 nav a {

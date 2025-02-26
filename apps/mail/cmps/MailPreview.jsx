@@ -17,7 +17,10 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
             </div>
 
             {/* Middle Section: Mail Content */}
-            <div className="mail-content" onClick={() => onToggleRead(mail)}>
+            <div className="mail-content" onClick={() => {
+                onToggleRead(mail)
+                navigate(`/mail/${mail.id}`)
+            }}>
                 <h4 className={mail.isRead ? '' : 'bold'}>{mail.subject}</h4>
                 <p>{mail.body.substring(0, 50)}...</p>
             </div>

@@ -10,6 +10,7 @@ export function MailDetails() {
     const [mail, setMail] = useState(null)
 
     useEffect(() => {
+        setMail(null) 
         mailService.get(mailId).then(setMail)
     }, [mailId])
 

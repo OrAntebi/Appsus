@@ -4,3 +4,15 @@
 
 /* NOTES */
 
+.main-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.header-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 15px;
+}

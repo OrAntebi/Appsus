@@ -5,7 +5,7 @@ export const notesData = [
         type: 'NoteTxt',
         isPinned: false,
         style: {
-            backgroundColor: '#00d'
+            backgroundColor: '#FFF8DC'
         },
         info: {
             title: 'My First Note',
@@ -18,7 +18,7 @@ export const notesData = [
         type: 'NoteImg',
         isPinned: false,
         style: {
-            backgroundColor: '#00d'
+            backgroundColor: '#FFF8DC'
         },
         info: {
             title: 'Bobi and Me',
@@ -31,7 +31,7 @@ export const notesData = [
         type: 'NoteTodos',
         isPinned: false,
         style: {
-            backgroundColor: '#00d'
+            backgroundColor: '#FFF8DC'
         },
         info: {
             title: 'Get my stuff together',

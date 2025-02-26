@@ -5,6 +5,24 @@
     border-block-end: 1px solid lightgray;
     
     img {
-        width: auto;
+        max-width: 2rem;
+        padding: 7px;
+
+        &:hover {
+            scale: 1.05;
+            border-radius: 100vh;
+            background-color: var(--hamburger-menu-bg);
+            cursor: pointer;
+        }
+
+        &:active {
+            scale: 1;
+        }
+
+    }
+
+    .menuLock {
+        border-radius: 100vh;
+        background-color: var(--hamburger-menu-bg); 
     }
 }

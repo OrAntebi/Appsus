@@ -11,6 +11,7 @@ const { Routes, Route } = ReactRouterDOM
 export function NoteIndex() {
 
     const [notes, setNotes] = useState([])
+    const [menuLock, setMenuLocked] = useState(false);
 
     useEffect(() => {
         loadNotes()
@@ -24,12 +25,16 @@ export function NoteIndex() {
             })
     }
 
+    function onMenuLock() {
+        setMenuLocked(!menuLock);
+    }
+
     return (
         <Fragment>
-            <NoteHeader />
+            <NoteHeader menuLock={menuLock} onMenuLock={onMenuLock}/>
 
-            <main className="note-index flex space-between">
-                <Navigation />
+            <main className="note-index main-layout">
+                <Navigation menuLock={menuLock} />
 
                 <Routes>
                     <Route index element={notes && <NoteList notes={notes} />} />

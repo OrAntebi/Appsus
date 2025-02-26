@@ -1,10 +1,76 @@
 .app-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    background: var(--bg1);
-}
+    position: relative;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+    box-shadow: inset 0px -6px 0px rgba(0, 0, 0, 0.1);
 
-nav a {
-    margin: .5em;
+    .main-nav {
+        position: fixed;
+        inset: 115px 0 auto 0;
+
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+
+        transition: grid-template-rows .6s;
+        background-color: #cccccce5;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+
+            min-height: 0;
+            
+            li {
+                display: block;
+                min-width: 135px;
+                border: none;
+                border-block-end: 1px solid black;
+
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    height: 100px;
+                }
+            }
+
+        }
+    }
+
+    &.openedMenu .main-nav{
+        grid-template-rows: 1fr;
+        transition: grid-template-rows .6s ease;
+    }
+
+    &.openedMenu .overlay {
+        position: absolute;
+        inset: 0;
+
+        height: 100vh;
+        width: 100vw;
+
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .main-logo {
+        max-width: 90px;
+        object-fit: contain;
+    }
+
+    .hamburger-menu-container img {
+        width: 2rem;
+
+        padding: 5px;
+        border-radius: 100vh;
+
+        &:hover {
+            background-color: var(--hamburger-menu-bg);
+            scale: 1.05;
+        }
+
+        &:active {
+            scale: 1;
+        }
+    }
 }

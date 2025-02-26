@@ -162,35 +162,45 @@ export const mailService = {
 }
 
 function query(filterBy = {}) {
-    let filteredMails = mails
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+
+    let mergedMails = [...mails.filter(mail => !storedMails.some(m => m.id === mail.id)), ...storedMails]
+
+    let filteredMails = mergedMails
+
     if (filterBy.status) {
         if (filterBy.status === 'inbox') {
-            filteredMails = filteredMails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
+            filteredMails = filteredMails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.status)
         } else if (filterBy.status === 'sent') {
-            filteredMails = filteredMails.filter(mail => mail.from === loggedinUser.email && !mail.removedAt)
+            filteredMails = filteredMails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && mail.status === 'sent') // ✅ Ensure it checks for sent status
         } else if (filterBy.status === 'trash') {
             filteredMails = filteredMails.filter(mail => mail.removedAt)
         } else if (filterBy.status === 'draft') {
-            filteredMails = filteredMails.filter(mail => !mail.sentAt && !mail.removedAt) // ✅ Drafts have no sentAt
+            filteredMails = filteredMails.filter(mail => mail.status === 'draft' && !mail.sentAt && !mail.removedAt)
         }
     }
+
     if (filterBy.txt) {
         filteredMails = filteredMails.filter(mail => 
             mail.subject.toLowerCase().includes(filterBy.txt.toLowerCase()) || 
             mail.body.toLowerCase().includes(filterBy.txt.toLowerCase())
         )
     }
+
     if (filterBy.hasOwnProperty('isRead') && filterBy.isRead !== null && filterBy.isRead !== 'all') {
         filteredMails = filteredMails.filter(mail => mail.isRead === filterBy.isRead)
     }
+
     if (filterBy.hasOwnProperty('isStared') && filterBy.isStared !== null) {
         filteredMails = filteredMails.filter(mail => mail.isStared === filterBy.isStared)
-    }    
+    }
+
     if (filterBy.labels && filterBy.labels.length) {
         filteredMails = filteredMails.filter(mail => {
             return filterBy.labels.some(label => mail.labels.includes(label))
         })
     }
+
     return Promise.resolve(filteredMails)
 }
 
@@ -202,10 +212,19 @@ function get(mailId) {
 function add(newMail) {
     newMail.id = makeId()
     newMail.createdAt = Date.now()
-    newMail.sentAt = Date.now()
+    newMail.sentAt = Date.now() 
+    newMail.status = 'sent' 
+    newMail.from = loggedinUser.email 
+
     mails.push(newMail)
+
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+    storedMails.push(newMail)
+    localStorage.setItem('mails', JSON.stringify(storedMails))
+
     return Promise.resolve(newMail)
 }
+
 
 function update(updatedMail) {
     mails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
@@ -240,19 +259,36 @@ function makeId(length = 6) {
 }
 
 function saveDraft(draftMail) {
-    const existingDraftIndex = mails.findIndex(mail => mail.id === draftMail.id)
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+
+    if (!draftMail.id) draftMail.id = makeId()
+
+    draftMail.status = 'draft'
+    draftMail.createdAt = draftMail.createdAt || Date.now()
+
+    const existingDraftIndex = storedMails.findIndex(mail => mail.id === draftMail.id)
 
     if (existingDraftIndex !== -1) {
-        mails[existingDraftIndex] = draftMail 
+        const existingDraft = storedMails[existingDraftIndex]
+
+        if (
+            existingDraft.to !== draftMail.to ||
+            existingDraft.subject !== draftMail.subject ||
+            existingDraft.body !== draftMail.body
+        ) {
+            storedMails[existingDraftIndex] = draftMail
+        }
     } else {
-        draftMail.id = makeId()
-        draftMail.createdAt = Date.now()
-        draftMail.removedAt = null
-        mails.push(draftMail) 
+        storedMails.push(draftMail)
     }
+
+    localStorage.setItem('mails', JSON.stringify(storedMails))
+
+    mails = [...mails.filter(mail => !storedMails.some(m => m.id === mail.id)), ...storedMails]
 
     return Promise.resolve(draftMail)
 }
+
 
 function autoSaveDraft(draftMail) {
     setInterval(() => {

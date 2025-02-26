@@ -8,6 +8,7 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState({ txt: '', status: 'inbox', isRead: null })
     const [sortBy, setSortBy] = useState('date-newest')
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadMails()
@@ -73,7 +74,7 @@ export function MailIndex() {
             <div className="container">
                 {/* Sidebar (Fixed Gmail-like Navigation) */}
                 <aside className="sidebar">
-                    <button className="compose-btn">
+                    <button className="compose-btn" onClick={() => navigate('/mail/compose')}>
                         <span className="material-icons">edit</span> Compose
                     </button>
                     <button onClick={() => setFolder('inbox')}>

@@ -8,28 +8,27 @@ export function MailCompose() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const [mail, setMail] = useState({
-        to: searchParams.get('to') || '',
-        subject: searchParams.get('subject') || '',
-        body: searchParams.get('body') || ''
+        to: '',
+        subject: '',
+        body: ''
     })
 
     useEffect(() => {
-        mailService.query({ status: 'draft' }).then(drafts => {
-            if (drafts.length > 0) {
-                setMail(drafts[0]) 
-            }
-        })
-    }, [])
+        const draftId = searchParams.get('draftId')
+
+        if (draftId) {
+            mailService.get(draftId).then(setMail)
+        } 
+    }, [])            
 
     useEffect(() => {
-        const autoSave = setInterval(() => {
-            if (mail.to || mail.subject || mail.body) {
-                mailService.saveDraft(mail)
-            }
-        }, 5000)
+        const saveTimeout = setTimeout(() => {
+            if (!mail.to.trim() && !mail.subject.trim() && !mail.body.trim()) return
+            mailService.saveDraft(mail)
+        }, 5000) 
 
-        return () => clearInterval(autoSave) 
-    }, [mail])
+        return () => clearTimeout(saveTimeout)
+    }, [mail])            
 
     function handleChange(ev) {
         const { name, value } = ev.target
@@ -38,7 +37,7 @@ export function MailCompose() {
 
     function sendMail(ev) {
         ev.preventDefault()
-        const newMail = { ...mail, sentAt: Date.now(), removedAt: null }
+        const newMail = { ...mail, sentAt: Date.now(), removedAt: null, status: null }
         mailService.add(newMail).then(() => navigate('/mail'))
     }    
 

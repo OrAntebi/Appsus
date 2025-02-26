@@ -3,9 +3,16 @@ const { useNavigate } = ReactRouterDOM
 export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRestore }) {
     const navigate = useNavigate()
 
+    function handleMailClick(){
+        if (mail.status === 'draft') {
+            navigate(`/mail/compose?draftId=${mail.id}`)
+        } else {
+            navigate(`/mail/${mail.id}`)
+        }
+    }
+
     return (
         <div className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}>
-            {/* Left Section: Star & Sender */}
             <div className="mail-left">
                 <button className="star-btn" onClick={(ev) => {
                     ev.stopPropagation()
@@ -16,16 +23,11 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
                 <span className={`mail-sender ${mail.isRead ? '' : 'bold'}`}>{mail.from}</span>
             </div>
 
-            {/* Middle Section: Mail Content */}
-            <div className="mail-content" onClick={() => {
-                onToggleRead(mail)
-                navigate(`/mail/${mail.id}`)
-            }}>
+            <div className="mail-content">
                 <h4 className={mail.isRead ? '' : 'bold'}>{mail.subject}</h4>
                 <p>{mail.body.substring(0, 50)}...</p>
             </div>
 
-            {/* Right Section: Actions */}
             <div className="mail-actions">
                 {mail.removedAt ? (
                     <button className="restore-btn" onClick={(ev) => {

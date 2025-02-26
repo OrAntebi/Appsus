@@ -4,7 +4,9 @@ function createEventEmitter() {
         on(evName, listener) {
             listenersMap[evName] = (listenersMap[evName]) ? [...listenersMap[evName], listener] : [listener]
             return () => {
+                if (!listenersMap[evName]) return
                 listenersMap[evName] = listenersMap[evName].filter(func => func !== listener)
+                if (listenersMap[evName].length === 0) delete listenersMap[evName]
             }
         },
         emit(evName, data) {

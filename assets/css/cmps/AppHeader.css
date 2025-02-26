@@ -73,6 +73,22 @@
             scale: 1;
         }
     }
+    min-height: 80px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+nav a {
+    margin: .5em;
+}
+
+nav a.active {
+    color: var(--color1);
+    font-weight: bold;
+    text-decoration: overline;
 }
 
 body:has(.app-header.openedMenu) {

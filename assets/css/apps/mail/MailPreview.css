@@ -1,0 +1,90 @@
+.mail-preview.read {
+    background-color: #e0e0e0 !important;
+    color: #777 !important;
+    font-weight: normal !important;
+}
+
+.mail-preview.unread {
+    background-color: white;
+    font-weight: bold;
+}
+
+/* ======= MAIL PREVIEW STYLING ======= */
+.mail-preview {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.mail-preview.unread {
+    background-color: #f2f6fc;
+}
+
+.mail-preview.read {
+    background-color: white;
+}
+
+.mail-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.mail-sender {
+    font-size: 14px;
+}
+
+.mail-sender.bold {
+    font-weight: bold;
+}
+
+.mail-content {
+    flex: 2;
+}
+
+.mail-content h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.mail-content p {
+    font-size: 14px;
+    color: #555;
+}
+
+.mail-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.star-btn, .trash-btn, .restore-btn, .view-mail-btn {
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-btn:hover {
+    color: gold;
+}
+
+.trash-btn:hover {
+    color: red;
+}
+
+.view-mail-btn {
+    background-color: #1a73e8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.view-mail-btn:hover {
+    background-color: #1257b7;
+}
+

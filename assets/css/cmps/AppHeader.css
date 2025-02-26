@@ -3,6 +3,13 @@
     background: linear-gradient(120deg, #89f7fe, #66a6ff);
     box-shadow: inset 0px -6px 0px rgba(0, 0, 0, 0.1);
 
+    min-height: 80px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
     .main-nav {
         position: fixed;
         inset: 115px 0 auto 0;
@@ -45,7 +52,7 @@
 
     &.openedMenu .overlay {
         position: absolute;
-        inset: 0;
+        inset: 115px 0 0 0;
 
         height: 100vh;
         width: 100vw;
@@ -73,12 +80,6 @@
             scale: 1;
         }
     }
-    min-height: 80px;
-    overflow: visible;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
 }
 
 nav a.active {

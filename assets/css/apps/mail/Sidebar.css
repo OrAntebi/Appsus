@@ -1,0 +1,44 @@
+.sidebar {
+    width: 240px;
+    background-color: #f6f8fc;
+    height: 100vh;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+}
+
+.sidebar.closed {
+    width: 70px;
+}
+
+.sidebar .toggle-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.sidebar button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.sidebar button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.closed button .text {
+    display: none;
+}

@@ -232,15 +232,20 @@ function update(updatedMail) {
 }
 
 function remove(mailId) {
-    const mailIndex = mails.findIndex(mail => mail.id === mailId)
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || mails
+
+    const mailIndex = storedMails.findIndex(mail => mail.id === mailId)
 
     if (mailIndex === -1) return Promise.reject('Mail not found')
 
-    if (mails[mailIndex].removedAt) {
-        mails.splice(mailIndex, 1) // Permanently delete
+    if (storedMails[mailIndex].removedAt) {
+        storedMails.splice(mailIndex, 1) // Permanently delete
     } else {
-        mails[mailIndex].removedAt = Date.now() // Move to trash
+        storedMails[mailIndex].removedAt = Date.now() // Move to trash
     }
+
+    localStorage.setItem('mails', JSON.stringify(storedMails))
+    mails = storedMails 
 
     return Promise.resolve()
 }
@@ -297,11 +302,19 @@ function autoSaveDraft(draftMail) {
 }
 
 function restore(mailId) {
-    const mail = mails.find(mail => mail.id === mailId)
-    if (!mail || !mail.removedAt) return Promise.reject('Mail not found in trash')
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || mails
 
-    mail.removedAt = null
-    return Promise.resolve(mail)
+    const mailIndex = storedMails.findIndex(mail => mail.id === mailId)
+    if (mailIndex === -1 || !storedMails[mailIndex].removedAt) {
+        return Promise.reject('Mail not found in trash') 
+    }
+
+    storedMails[mailIndex].removedAt = null 
+
+    localStorage.setItem('mails', JSON.stringify(storedMails)) 
+    mails = storedMails 
+
+    return Promise.resolve(storedMails[mailIndex])
 }
 
 function toggleLabel(mailId, label) {

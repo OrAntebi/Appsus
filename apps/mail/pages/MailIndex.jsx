@@ -1,5 +1,7 @@
+import { Sidebar } from '../cmps/Sidebar.jsx'
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
+import { MailHeader } from '../cmps/MailHeader.jsx'
 
 const { useState, useEffect } = React
 const useNavigate = ReactRouterDOM.useNavigate
@@ -8,6 +10,7 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState({ txt: '', status: 'inbox', isRead: null })
     const [sortBy, setSortBy] = useState('date-newest')
+    const [isSideBarOpen, setIsSidebarOpen] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -32,9 +35,20 @@ export function MailIndex() {
         })
     }
 
-    function toggleStar(mail){
+    function toggleStar(mail) {
         const updatedMail = { ...mail, isStared: !mail.isStared }
         mailService.update(updatedMail).then(() => loadMails())
+    }
+
+    function setLabelFilter(label) {
+        setFilterBy(prev => ({
+            ...prev,
+            labels: label ? [label] : []
+        }))
+    }
+
+    function toggleSidebar(){
+        setIsSidebarOpen(prev => !prev)
     }
 
     function toggleRead(mail) {
@@ -43,17 +57,13 @@ export function MailIndex() {
             setMails(prevMails => prevMails.map(m => m.id === mail.id ? updatedMail : m))
         })
     }
-    
+
     function handleFilterChange(ev) {
         setFilterBy(prevFilter => ({ ...prevFilter, txt: ev.target.value }))
     }
 
     function setFolder(status) {
         setFilterBy(prevFilter => ({ ...prevFilter, status }))
-    }
-
-    function setReadFilter(isRead) {
-        setFilterBy(prevFilter => ({ ...prevFilter, isRead }))
     }
 
     function handleRemove(mailId) {
@@ -64,108 +74,39 @@ export function MailIndex() {
 
     function handleRestore(mailId) {
         mailService.restore(mailId).then(() => {
-            setMails(prevMails => prevMails.map(mail =>
-                mail.id === mailId ? { ...mail, removedAt: null } : mail
-            ))
+            loadMails() 
         })
-    }  
-
-        return (
-            <div className="container">
-                {/* Sidebar (Fixed Gmail-like Navigation) */}
-                <aside className="sidebar">
-                    <button className="compose-btn" onClick={() => navigate('/mail/compose')}>
-                        <span className="material-icons">edit</span> Compose
-                    </button>
-                    <button onClick={() => setFolder('inbox')}>
-                        <span className="material-icons">inbox</span> Inbox
-                    </button>
-                    <button onClick={() => setFolder('sent')}>
-                        <span className="material-icons">send</span> Sent
-                    </button>
-                    <button onClick={() => setFolder('trash')}>
-                        <span className="material-icons">delete</span> Trash
-                    </button>
-                    <button onClick={() => setFolder('draft')}>
-                        <span className="material-icons">drafts</span> Drafts
-                    </button>
-                    <button onClick={() => setFolder('starred')}>
-                        <span className="material-icons">star</span> Starred
-                    </button>
-                </aside>
-    
-                {/* Mail Section */}
-                <div className="mail-list-container">
-                    {/* Search & Filters Header */}
-                    <header className="mail-header">
-                        <input 
-                            type="text" 
-                            placeholder="Search mails..." 
-                            value={filterBy.txt} 
-                            onChange={handleFilterChange} 
-                            className="search-bar"
-                        />
-                        
-                        {/* Sorting & Filtering */}
-                        <div className="filters">
-                            <label>Sort by: </label>
-                            <select value={sortBy} onChange={ev => setSortBy(ev.target.value)}>
-                                <option value="date-newest">Newest First</option>
-                                <option value="date-oldest">Oldest First</option>
-                                <option value="subject-az">Subject A-Z</option>
-                                <option value="subject-za">Subject Z-A</option>
-                            </select>
-    
-                            <label>Filter: </label>
-                            <select onChange={ev => setReadFilter(ev.target.value === 'all' ? null : ev.target.value === 'read')}>
-                                <option value="all">All</option>
-                                <option value="read">Read</option>
-                                <option value="unread">Unread</option>
-                            </select>
-    
-                            <label>Show: </label>
-                            <select onChange={ev => {
-                                const value = ev.target.value
-                                setFilterBy(prev => ({
-                                    ...prev,
-                                    isStared: value === 'starred' ? true : null 
-                                }))
-                            }}>
-                                <option value="all">All Emails</option>
-                                <option value="starred">Starred</option>
-                            </select>
-    
-                            <label>Label: </label>
-                            <select onChange={ev => setFilterBy(prev => ({
-                                ...prev, labels: ev.target.value === 'all' ? [] : [ev.target.value]
-                            }))}>
-                                <option value="all">All Labels</option>
-                                <option value="Work">Work</option>
-                                <option value="Personal">Personal</option>
-                                <option value="Important">Important</option>
-                                <option value="Spam">Spam</option>
-                                <option value="Romantic">Romantic</option>
-                                <option value="Funny">Funny</option>
-                                <option value="News">News</option>
-                                <option value="Finance">Finance</option>
-                            </select>
-                        </div>
-                    </header>
-    
-                    {/* Mail List */}
-                    <section className="mail-list">
-                        <MailList 
-                            mails={mails} 
-                            onToggleStar={toggleStar} 
-                            onToggleRead={toggleRead} 
-                            onRemove={handleRemove}
-                            onRestore={handleRestore}
-                        />
-                    </section>
-                </div>
-            </div>
-        )
     }
-    
 
+    function setReadFilter(isRead) {
+        setFilterBy(prevFilter => ({ ...prevFilter, isRead }))
+    }
 
+    return (
+        <div className="container">
+            <Sidebar onSetFolder={setFolder} isSidebarOpen={isSideBarOpen} toggleSidebar={toggleSidebar} />
+            
+            <div className="mail-list-container">
+                <MailHeader
+                    filterBy={filterBy}
+                    onFilterChange={handleFilterChange}
+                    sortBy={sortBy}
+                    onSortChange={setSortBy}
+                    setReadFilter={setReadFilter}
+                    setFolder={setFolder}
+                    setLabelFilter={setLabelFilter}
+                />
+
+                <section className="mail-list">
+                    <MailList
+                        mails={mails}
+                        onToggleStar={toggleStar}
+                        onToggleRead={toggleRead}
+                        onRemove={handleRemove}
+                        onRestore={handleRestore}
+                    />
+                </section>
+            </div>
+        </div>
+    )
+}

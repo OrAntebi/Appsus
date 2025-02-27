@@ -11,7 +11,14 @@ export function MailDetails() {
 
     useEffect(() => {
         setMail(null) 
-        mailService.get(mailId).then(setMail)
+
+        mailService.get(mailId).then(mailData => {
+            if (!mailData) {
+                navigate('/mail') 
+                return
+            }
+            setMail(mailData)
+        }).catch(() => navigate('/mail'))
     }, [mailId])
 
     function toggleReadStatus() {
@@ -69,9 +76,13 @@ export function MailDetails() {
             </button>
 
             {mail.removedAt ? (
-                <button onClick={restoreMail}>Restore</button>
+                <button onClick={() => mailService.restore(mail.id).then(() => navigate('/mail'))}>
+                    Restore
+                </button>
             ) : (
-                <button onClick={deleteMail}>Move to Trash</button>
+                <button onClick={() => mailService.remove(mail.id).then(() => navigate('/mail'))}>
+                    Move to Trash
+                </button>
             )}
 
             <button onClick={replyToMail}>Reply</button>

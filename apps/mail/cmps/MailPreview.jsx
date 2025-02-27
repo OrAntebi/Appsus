@@ -1,13 +1,16 @@
 const { useNavigate } = ReactRouterDOM
 
-export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRestore }) {
+export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRestore, handleMailClick }) {
     const navigate = useNavigate()
 
-    function handleMailClick(){
-        if (mail.status === 'draft') {
+    function handleMailClick() {
+        ev.stopPropagation()
+        if (mail.removedAt) {
+            navigate(`/mail/${mail.id}`) 
+        } else if (mail.status === 'draft') {
             navigate(`/mail/compose?draftId=${mail.id}`)
         } else {
-            navigate(`/mail/${mail.id}`)
+            navigate(`/mail/${mail.id}`) 
         }
     }
 
@@ -26,36 +29,22 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
             <div className="mail-content">
                 <h4 className={mail.isRead ? '' : 'bold'}>{mail.subject}</h4>
                 <p>{mail.body.substring(0, 50)}...</p>
+                <div className="mail-labels">
+                    {mail.labels && mail.labels.map(label => (
+                        <span key={label} className={`label ${label.toLowerCase()}`}>{label}</span>
+                    ))}
+                </div>
             </div>
 
             <div className="mail-actions">
-                {mail.removedAt ? (
-                    <button className="restore-btn" onClick={(ev) => {
-                        ev.stopPropagation()
-                        onRestore(mail.id)
-                    }}>
-                        Restore
-                    </button>
-                ) : (
-                    <button className="trash-btn" onClick={(ev) => {
-                        ev.stopPropagation()
-                        onRemove(mail.id)
-                    }}>
-                        🗑️
-                    </button>
-                )}
-
-                <button className="view-mail-btn" onClick={(ev) => {
+                <button className="trash-btn" onClick={(ev) => {
                     ev.stopPropagation()
-                    navigate(`/mail/${mail.id}`)
+                    onRemove(mail.id)
                 }}>
-                    Open
+                    🗑️
                 </button>
             </div>
         </div>
     )
 }
-
-
-
 

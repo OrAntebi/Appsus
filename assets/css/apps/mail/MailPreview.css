@@ -13,10 +13,15 @@
 .mail-preview {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    transition: background 0.2s;
     cursor: pointer;
+    transition: background 0.2s;
+}
+
+.mail-preview:hover {
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .mail-preview.unread {
@@ -31,7 +36,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;
+    width: 250px;
 }
 
 .mail-sender {
@@ -46,9 +51,11 @@
     flex: 2;
 }
 
-.mail-content h4 {
-    margin: 0;
-    font-size: 16px;
+.mail-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .mail-content p {
@@ -58,6 +65,7 @@
 
 .mail-actions {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -86,5 +94,12 @@
 
 .view-mail-btn:hover {
     background-color: #1257b7;
+}
+
+.mail-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
 

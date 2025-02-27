@@ -3,7 +3,7 @@ const { useNavigate } = ReactRouterDOM
 export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRestore, handleMailClick }) {
     const navigate = useNavigate()
 
-    function handleMailClick() {
+    function handleMailClick(ev) {
         ev.stopPropagation()
         if (mail.removedAt) {
             navigate(`/mail/${mail.id}`) 
@@ -15,7 +15,8 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
     }
 
     return (
-        <div className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`}>
+        <div className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`} onClick={handleMailClick}>
+            {/* Left Section: Star + Sender */}
             <div className="mail-left">
                 <button className="star-btn" onClick={(ev) => {
                     ev.stopPropagation()
@@ -23,19 +24,16 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
                 }}>
                     {mail.isStared ? '★' : '☆'}
                 </button>
-                <span className={`mail-sender ${mail.isRead ? '' : 'bold'}`}>{mail.from}</span>
+                <span className="mail-sender">{mail.from}</span>
             </div>
 
+            {/* Middle Section: Subject + Preview */}
             <div className="mail-content">
-                <h4 className={mail.isRead ? '' : 'bold'}>{mail.subject}</h4>
-                <p>{mail.body.substring(0, 50)}...</p>
-                <div className="mail-labels">
-                    {mail.labels && mail.labels.map(label => (
-                        <span key={label} className={`label ${label.toLowerCase()}`}>{label}</span>
-                    ))}
-                </div>
+                <span className="mail-subject">{mail.subject}</span>
+                <span className="mail-body">{mail.body.substring(0, 50)}...</span>
             </div>
 
+            {/* Right Section: Actions (Delete) */}
             <div className="mail-actions">
                 <button className="trash-btn" onClick={(ev) => {
                     ev.stopPropagation()
@@ -47,4 +45,3 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onRest
         </div>
     )
 }
-

@@ -39,6 +39,14 @@ export function MailCompose() {
         ev.preventDefault()
         const newMail = { ...mail, sentAt: Date.now(), removedAt: null, status: null }
         mailService.add(newMail).then(() => navigate('/mail'))
+    }  
+    
+    function saveMail(mail) {
+        mail.id = utilService.makeId()
+        mail.sentAt = Date.now()
+        mails.push(mail) 
+        _saveMailsToStorage()
+        return Promise.resolve(mail)
     }    
 
     function discardDraft() {

@@ -1,14 +1,32 @@
 .mail-list-container {
-    max-height: 70vh;
+    height: auto;
+    max-height: 75vh;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 0;
     margin: 0;
+}
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container, .main-layout {
+    height: 100vh; 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .mail-list {
     padding: 0;  
     margin: 0;   
     list-style: none;
+    overflow: visible;
+    width: 100%;
 }
 
 .mail-preview {
@@ -18,6 +36,10 @@
     padding: 10px 15px;
     border-bottom: 1px solid #ddd;
     min-width: 100%;
+}
+
+.mail-preview:hover .mail-actions {
+    opacity: 1; 
 }
 
 .mail-preview:first-child {
@@ -81,10 +103,102 @@
 }
 
 .mail-actions {
-    width: 50px;
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out; 
+    display: flex;
+    gap: 10px;
+}
+
+.mail-actions button {
+    position: relative;
+}
+
+.mail-actions button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+}
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    transform: translateY(5px);
+    bottom: -30px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mail-checkbox {
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
-    flex-shrink: 0;
+    align-items: center;
+    position: relative;
+    border-radius: 50%; 
+    transition: background-color 0.2s ease-in-out;
 }
+
+.mail-checkbox:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+}
+
+.mail-checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: white;
+    position: relative;
+}
+
+.mail-checkbox input:checked {
+    background-color: #1a73e8;
+    border-color: #1a73e8;
+}
+
+.mail-checkbox input:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.mail-checkbox:hover .checkbox-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
 
 

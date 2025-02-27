@@ -1,11 +1,18 @@
+
 const { useState } = React
 
-export function Sidebar({ onSetFolder, isSidebarOpen, toggleSidebar }) { 
+import '/assets/css/apps/mail/Sidebar.css'
+
+export function Sidebar({ onSetFolder, isSidebarOpen, toggleSidebar, onCompose }) { 
 
     return (
         <aside className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
             <button className="toggle-btn" onClick={toggleSidebar}>
                 ☰
+            </button>
+
+            <button className="compose-btn" onClick={onCompose}>
+                <span className="compose-icon">✏️</span> Compose
             </button>
 
             <button onClick={() => onSetFolder('inbox')} title="Inbox">

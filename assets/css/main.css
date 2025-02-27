@@ -40,12 +40,6 @@ body {
     overflow: hidden;
 }
 
-/* Main Container */
-.container {
-    width: auto;
-    height: auto;
-}
-
 /* Sidebar (Gmail-Like Left Menu) */
 .sidebar {
     width: 250px;

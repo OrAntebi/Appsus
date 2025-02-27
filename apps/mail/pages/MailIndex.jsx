@@ -2,6 +2,7 @@ import { Sidebar } from '../cmps/Sidebar.jsx'
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailHeader } from '../cmps/MailHeader.jsx'
+import { MailCompose } from '../pages/MailCompose.jsx'
 
 const { useState, useEffect } = React
 const useNavigate = ReactRouterDOM.useNavigate
@@ -11,6 +12,8 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState({ txt: '', status: 'inbox', isRead: null })
     const [sortBy, setSortBy] = useState('date-newest')
     const [isSideBarOpen, setIsSidebarOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isComposing, setIsComposing] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -33,6 +36,10 @@ export function MailIndex() {
 
             setMails(sortedMails)
         })
+    }
+
+    function toggleCompose() {
+        setIsComposing(prev => !prev)
     }
 
     function toggleStar(mail) {
@@ -84,8 +91,12 @@ export function MailIndex() {
 
     return (
         <div className="container">
-            <Sidebar onSetFolder={setFolder} isSidebarOpen={isSideBarOpen} toggleSidebar={toggleSidebar} />
-            
+            <Sidebar onSetFolder={setFolder} 
+            isSidebarOpen={isSideBarOpen} 
+            toggleSidebar={toggleSidebar} 
+            onCompose={toggleCompose}
+            />
+
             <div className="mail-list-container">
                 <MailHeader
                     filterBy={filterBy}
@@ -107,6 +118,8 @@ export function MailIndex() {
                     />
                 </section>
             </div>
+
+            {isComposing && <MailCompose onClose={toggleCompose} />}
         </div>
     )
 }

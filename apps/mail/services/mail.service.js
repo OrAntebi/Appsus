@@ -146,7 +146,137 @@ let mails = [
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
-    }    
+    },
+    {
+        id: makeId(),
+        createdAt: 1678554930500,
+        subject: '🚨 Security Alert: Unusual Login Attempt',
+        body: 'We detected an unusual login attempt on your account from an unrecognized device in Antarctica. If this was not you, please reset your password immediately.',
+        isRead: false,
+        sentAt: 1678554930594,
+        removedAt: null,
+        from: 'security@securemail.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Personal']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678555930500,
+        subject: 'FREE Cruise Vacation! 🌴🚢',
+        body: 'Congratulations! You have been selected for a free luxury cruise. Just provide your social security number and bank details to claim your tickets now!',
+        isRead: false,
+        sentAt: 1678555930594,
+        removedAt: null,
+        from: 'scam@totallylegit.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Spam']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678556930500,
+        subject: 'HR Update: Mandatory Team Building Event',
+        body: 'Hello Team, just a friendly reminder that our mandatory team-building activity is this Friday. Attendance is required. Yes, even for you, Steve.',
+        isRead: false,
+        sentAt: 1678556930594,
+        removedAt: null,
+        from: 'hr@company.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Work']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678557930500,
+        subject: 'Important: Your Internet Service Will Be Disconnected',
+        body: 'Dear Valued Customer, your internet service will be disconnected within 24 hours unless you provide your billing details immediately. (P.S. We don’t actually know who you are).',
+        isRead: false,
+        sentAt: 1678557930594,
+        removedAt: null,
+        from: 'billing@fakenetprovider.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Spam']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678558930500,
+        subject: 'URGENT: Your Car’s Extended Warranty Expired',
+        body: 'We have been trying to reach you about your car’s extended warranty. Please call us back immediately to renew. (Even if you don’t own a car, you still need to call us.)',
+        isRead: false,
+        sentAt: 1678558930594,
+        removedAt: null,
+        from: 'warranty@scamcalls.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Spam']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678559930500,
+        subject: 'IT Update: System Maintenance Tonight',
+        body: 'Our IT department will be performing maintenance from 12 AM to 4 AM. This may affect your ability to procrastinate on work using the company WiFi.',
+        isRead: false,
+        sentAt: 1678559930594,
+        removedAt: null,
+        from: 'it@company.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Work']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678560930500,
+        subject: 'Your Coffee Machine Has Had Enough',
+        body: 'Hey, it’s me. The office coffee machine. I can’t take it anymore. 12 espressos a day? I need a break, or I’m unplugging myself.',
+        isRead: false,
+        sentAt: 1678560930594,
+        removedAt: null,
+        from: 'coffeepot@breakroom.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Funny']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678561930500,
+        subject: 'Congratulations! You’ve Been Selected for a Secret Mission!',
+        body: 'The fate of the world depends on you. Your mission, should you choose to accept it, is to retrieve the hidden USB drive from the HR department without them noticing.',
+        isRead: false,
+        sentAt: 1678561930594,
+        removedAt: null,
+        from: 'topsecret@missioncontrol.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Funny']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678562930500,
+        subject: 'Friendly Reminder: Your Rent is Due',
+        body: 'Hey, just a friendly reminder that rent is due soon. Unlike your other bills, I actually need this money. Thanks!',
+        isRead: false,
+        sentAt: 1678562930594,
+        removedAt: null,
+        from: 'landlord@rentcollectors.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Finance']
+    },
+    {
+        id: makeId(),
+        createdAt: 1678563930500,
+        subject: 'New Assignment: Deadline Extended',
+        body: 'Good news! The deadline for your upcoming project has been extended. Bad news! It’s still due eventually, so don’t procrastinate too much.',
+        isRead: false,
+        sentAt: 1678563930594,
+        removedAt: null,
+        from: 'manager@company.com',
+        to: loggedinUser.email,
+        isStared: false,
+        labels: ['Work']
+    }   
 ]
 
 export const mailService = {

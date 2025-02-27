@@ -1,3 +1,21 @@
 .note-control {
-    
+    position: relative;
+
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    max-height: 0;
+
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.5s ease;
+
+    > * {
+        cursor: pointer;
+    }
+}
+
+.note-card:hover .note-control {
+    max-height: 500px;
+    opacity: 1;
 }

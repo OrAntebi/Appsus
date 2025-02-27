@@ -24,7 +24,6 @@ export function UserMsg() {
   const className = (msg)? `${msg.type} open` : '' 
   return (
     <section className={`user-msg ${className}`}>
-      <button onClick={closeMsg}>x</button>
       {msg && msg.txt}
     </section>
   )

@@ -7,21 +7,26 @@ export const noteService = {
     getById,
     remove,
     save,
-    // getDefaultFilter
 }
 
 const KEY = 'notesDB'
 
-function query() {
+const noteStates = {
+    ACTIVE: 'active',
+    ARCHIVED: 'archived',
+    DELETED: 'deleted',
+    PINNED: 'pinned'
+}
+
+function query(stateFilter = noteStates.ACTIVE) {
     return storageService.query(KEY, 500)
         .then(notes => {
             if (!notes || !notes.length) {
                 notes = notesData
                 _saveNotesToStorage()
             }
-            return notes
+            return notes.filter(note => note.state === stateFilter);
         })
-        // .catch(error => console.log(error))
 }
 
 function getById(noteId) {
@@ -36,10 +41,6 @@ function save(note) {
     return note.id ? _updateNote(note) : _addNote(note)
 }
 
-// function getDefaultFilter() {
-//     return { title: '', price: 0 }
-// }
-
 function _updateNote(note) {
     return storageService.put(KEY, note)
 }
@@ -51,4 +52,3 @@ function _addNote(note) {
 function _saveNotesToStorage() {
     utilService.saveToStorage(KEY, notesData)
 }
-

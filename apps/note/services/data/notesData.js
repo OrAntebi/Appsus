@@ -3,7 +3,7 @@ export const notesData = [
         id: 'n101',
         createdAt: 1112222,
         type: 'NoteTxt',
-        isPinned: false,
+        state: 'active',
         style: {
             backgroundColor: '#FFF8DC'
         },
@@ -16,7 +16,7 @@ export const notesData = [
         id: 'n102',
         createdAt: 1112223,
         type: 'NoteImg',
-        isPinned: false,
+        state: 'active',
         style: {
             backgroundColor: '#FFF8DC'
         },
@@ -29,7 +29,7 @@ export const notesData = [
         id: 'n103',
         createdAt: 1112224,
         type: 'NoteTodos',
-        isPinned: false,
+        state: 'active',
         style: {
             backgroundColor: '#FFF8DC'
         },

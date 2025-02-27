@@ -1,26 +1,22 @@
+
 import { NotePreview } from './NotePreview.jsx'
 import { NoteControl } from './NoteControl.jsx'
-const { useState } = React
 
-export function NoteList({ notes }) {
-
-    const [bgColor, setBgColor] = useState({})
-
-    function onSetBgColor({ note }) {
-        setBgColor({ ...note, style: { backgroundColor: bgColor } })
-    }
-
+export function NoteList({ notes, onSetBgColor, onTrash, onArchive, onPin }) {
 
     return (
         <section className="note-list flex">
-            {notes.map(note => {
-                return (
-                    <article className="note-card" key={note.id} style={{ bgColor }}>
-                        <NotePreview note={note} />
-                        <NoteControl onSetBgColor={() => onSetBgColor(note)} />
-                    </article>
-                )
-            })}
+            {notes.map(note => (
+                <article className="note-card flex column" key={note.id} style={note.style}>
+                    <NotePreview note={note} />
+                    <NoteControl
+                        onSetBgColor={(color) => onSetBgColor(note.id, color)}
+                        onTrash={() => onTrash(note.id)}
+                        onArchive={() => onArchive(note.id)}
+                        onPin={() => onPin(note.id)}
+                    />
+                </article>
+            ))}
         </section>
     )
 }

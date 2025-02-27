@@ -1,3 +1,46 @@
 .color-picker {
+    gap: 0.5em;
+}
+
+.input-hidden {
     position: absolute;
+    left: -9999px;
+}
+
+.color-picker .color {
+    display: inline-block;
+
+    width: 2em;
+    height: 2em;
+
+    border: 2px solid #fff;
+    border-radius: 100vh;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.color-picker .red {
+    background-color: #f08080;
+}
+
+.color-picker .yellow {
+    background-color: #ffffe0;
+}
+
+.color-picker .blue {
+    background-color: #add8e6;
+}
+
+.color-picker .green {
+    background-color: #90ee90;
+}
+
+
+.color-picker .color:hover {
+    transform: scale(1.1);
+}
+
+
+.color-picker input[type="radio"]:checked+label {
+    border: 2px solid black;
 }

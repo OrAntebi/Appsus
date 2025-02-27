@@ -1,29 +1,25 @@
-const { useState } = React
+const { useState, Fragment } = React
 
-export function NoteControl({ onSetBgColor }) {
+import { ColorPicker } from "./ColorPicker.jsx"
 
-    const [palleteIsOpen, setPalleteIsOpen] = useState(false)
+export function NoteControl({ onSetBgColor, onArchive, onTrash, onPin }) {
 
-    function onPalleteIsOpen() {
-        setPalleteIsOpen(!palleteIsOpen)
+    const [paletteIsOpen, setPaletteIsOpen] = useState(false)
+
+    function onPaletteIsOpen() {
+        setPaletteIsOpen(!paletteIsOpen)
     }
 
-    return (
-        <section className="note-control">
-            <img src="assets\img\note\pallete.svg" alt="Pallete icon" onClick={onPalleteIsOpen} />
-            {palleteIsOpen && <ColorPicker />}
-        </section>
-    )
-}
 
-
-export function ColorPicker() {
     return (
-        <section className="color-picker">
-            <span className="red">y</span>
-            <span className="yellow"></span>
-            <span className="blue"></span>
-            <span className="green"></span>
-        </section>
+        <Fragment>
+            <section className="note-control flex">
+                <img src="assets\img\note\palette.svg" alt="Palette icon" onClick={onPaletteIsOpen} />
+                <img src="assets\img\note\archive.svg" alt="Archive icon" onClick={onArchive} />
+                <img src="assets\img\note\trash.svg" alt="Trash icon" onClick={onTrash} />
+                <img src="assets\img\note\pin.svg" alt="Pin icon" onClick={onPin} />
+            </section>
+            {paletteIsOpen && <ColorPicker onSetBgColor={(color)=>onSetBgColor(color)}/>}
+        </Fragment>
     )
 }

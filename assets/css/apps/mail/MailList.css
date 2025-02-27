@@ -12,14 +12,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-.app-container, .main-layout {
-    height: 100vh; 
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+} 
 
 .mail-list {
     padding: 0;  

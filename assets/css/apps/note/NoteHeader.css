@@ -1,4 +1,5 @@
 .note-header {
+    gap: 25px;
     padding: .5em;
 
     border-block-end: 1px solid lightgray;

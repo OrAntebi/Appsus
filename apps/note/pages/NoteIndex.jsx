@@ -4,35 +4,58 @@ import { noteService } from '../services/note.service.js'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { UserMsg } from '../../../cmps/UserMsg.jsx'
+import { Loader } from '../cmps/Loader.jsx'
 
 const { useEffect, useState, Fragment } = React
 const { Routes, Route } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-    const [filter, setFilter] = useState()
+    const [loader, setLoader] = useState(false)
+    const [filter, setFilter] = useState('active')
     const [menuLock, setMenuLocked] = useState(false)
 
     useEffect(() => {
+        setLoader(true)
         loadNotes()
     }, [filter])
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 760) setMenuLocked(true)
+            else setMenuLocked(false)
+        }
+
+        window.addEventListener('resize', handleResize)
+        handleResize()
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     function loadNotes() {
         noteService.query(filter)
-            .then(notes => {
-                setNotes([...notes])
-            })
+            .then(fetchedNotes => setNotes(fetchedNotes))
+            .catch(err => showErrorMsg(`Failed to load notes: ${err.message}`))
+            .finally(() => setLoader(false))
     }
 
-    function onSetFilter(filter) {
-        setFilter(filter)
+    function onSetFilter(newFilter) {
+        setFilter(newFilter)
     }
+
+    function onMenuLocked() {
+        setMenuLocked(!menuLock)
+    }
+
+    /*------- Note control actions -------*/
 
     function onSetBgColor(noteId, color) {
         noteService.getById(noteId)
             .then(note => {
-                console.log('color1:', color)
-                const updatedNote = { ...note, style: { ...note.style, backgroundColor: color } }
+                const updatedNote = {
+                    ...note,
+                    style: { ...note.style, backgroundColor: color }
+                }
                 return noteService.save(updatedNote)
             })
             .then(updatedNote => {
@@ -42,50 +65,118 @@ export function NoteIndex() {
                     )
                 )
             })
-            .catch(err => {
-                showErrorMsg(`Failed to update color: ${err.message}`)
-            })
-    }
-
-
-    function onTrash(noteId) {
-        noteService.remove(noteId)
-            .then(() => setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId)))
-            .then(() => showSuccessMsg('Note successfully moved to trash!'))
-            .catch(() => showErrorMsg(`Couldn't moved note to trash`))
+            .catch(err => showErrorMsg(`Failed to update color: ${err.message}`))
     }
 
     function onArchive(noteId) {
-        const updatedNotes = notes.map(note =>
-            note.id === noteId ? { ...note, isArchived: true } : note
-        )
-        setNotes(updatedNotes)
-        noteService.save(updatedNotes.find(note => note.id === noteId))
+        noteService.getById(noteId)
+            .then(note => noteService.save({ ...note, state: 'archived', isPinned: false }))
+            .then(() => {
+                loadNotes()
+                showSuccessMsg('Note successfully moved to archive!')
+            })
+            .catch(err => showErrorMsg(`Failed to move note to archive: ${err.message}`))
+    }
+
+    function onTrash(noteId) {
+        noteService.getById(noteId)
+            .then(note => noteService.save({ ...note, state: 'deleted', isPinned: false }))
+            .then(() => {
+                showSuccessMsg('Note successfully moved to trash!')
+                loadNotes()
+            })
+            .catch(err => showErrorMsg(`Failed to move note to trash: ${err.message}`))
     }
 
     function onPin(noteId) {
-        const updatedNotes = notes.map(note =>
-            note.id === noteId ? { ...note, isPinned: !note.isPinned } : note
-        )
-        setNotes(updatedNotes)
-        noteService.save(updatedNotes.find(note => note.id === noteId))
+        noteService.getById(noteId)
+            .then(note => {
+                const updatedNote = { ...note, isPinned: !note.isPinned }
+                return noteService.save(updatedNote)
+            })
+            .then((updatedNote) => {
+                showSuccessMsg(`Note successfully ${updatedNote.isPinned ? 'pinned' : 'unpinned'}!`)
+                loadNotes()
+            })
+            .catch(err => showErrorMsg(`Failed to toggle pin: ${err.message}`))
     }
+
+    function onDeleteForever(noteId) {
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+                showSuccessMsg('Note permanently deleted!')
+            })
+            .catch(err => showErrorMsg(`Failed to delete note: ${err.message}`))
+    }
+
+    function onRestore(noteId) {
+        noteService.getById(noteId)
+            .then(note => noteService.save({ ...note, state: 'active' }))
+            .then(() => {
+                showSuccessMsg('Note successfully moved to active!')
+                loadNotes()
+            })
+            .catch(err => showErrorMsg(`Failed to move note to active: ${err.message}`))
+    }
+
+    const pinnedNotes = notes.filter(note => note.isPinned)
+    const unpinnedNotes = notes.filter(note => !note.isPinned)
 
     return (
         <Fragment>
-            <NoteHeader menuLock={menuLock} onMenuLock={() => setMenuLocked(!menuLock)} />
+            <NoteHeader filter={filter} menuLock={menuLock} onMenuLock={onMenuLocked} />
 
             <main className="note-index main-layout">
-                <Navigation menuLock={menuLock} />
+                <Navigation onSetFilter={onSetFilter} menuLock={menuLock} />
 
-                <Routes>
-                    <Route path="/" onClick={() => onSetFilter()} element={<NoteList notes={notes} onSetBgColor={onSetBgColor} onTrash={onTrash} onArchive={onArchive} onPin={onPin} />} />
-                    <Route path="/archived" onClick={() => onSetFilter('archived')} element={<NoteList notes={notes} onSetBgColor={onSetBgColor} onTrash={onTrash} onArchive={onArchive} onPin={onPin} />} />
-                    <Route path="/deleted" onClick={() => onSetFilter('deleted')} element={<NoteList notes={notes} onSetBgColor={onSetBgColor} onTrash={onTrash} onArchive={onArchive} onPin={onPin} />} />
-                </Routes>
+                {loader && <Loader />}
+                {!loader && <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Fragment>
+                                {pinnedNotes.length > 0 && <NoteList
+                                    notes={pinnedNotes}
+                                    title="Pinned"
+                                    onSetBgColor={onSetBgColor}
+                                    onTrash={onTrash}
+                                    onArchive={onArchive}
+                                    onPin={onPin}
+                                />}
+                                <NoteList
+                                    notes={unpinnedNotes}
+                                    title={pinnedNotes.length > 0 ? 'Others' : ''}
+                                    onSetBgColor={onSetBgColor}
+                                    onTrash={onTrash}
+                                    onArchive={onArchive}
+                                    onPin={onPin}
+                                />
+                            </Fragment>
+                        }
+                    />
+                    <Route
+                        path="/archive"
+                        element={<NoteList notes={notes}
+                            onSetBgColor={onSetBgColor}
+                            onTrash={onTrash}
+                            onRestore={onRestore}
+                        />}
+                    />
+                    <Route
+                        path="/trash"
+                        element={
+                            <NoteList
+                                notes={notes}
+                                onDeleteForever={onDeleteForever}
+                                onRestore={onRestore}
+                            />
+                        }
+                    />
+                </Routes>}
             </main>
+
             <UserMsg />
         </Fragment>
     )
 }
-

@@ -7,6 +7,7 @@
 @import './cmps/home.css';
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
+@import './cmps/Loader.css';
 
 /* NOTES */
 @import './apps/note/NoteHeader.css';
@@ -14,8 +15,6 @@
 @import './apps/note/Navigation.css';
 @import './apps/note/NoteList.css';
 @import './apps/note/NotePreview.css';
-@import './apps/note/ArchiveNotes.css';
-@import './apps/note/TrashNotes.css';
 @import './apps/note/NoteControl.css';
 @import './apps/note/ColorPicker.css';
 

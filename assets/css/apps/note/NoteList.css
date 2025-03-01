@@ -1,11 +1,15 @@
 .note-list {
     flex-wrap: wrap;
     margin: 1rem;
-    
+
     align-items: flex-start;
 
     .note-card {
-        gap: 1em;
+        position: relative;
+
+        height: fit-content;
+
+        gap: .5em;
         padding: 1em;
         margin: 1em;
 

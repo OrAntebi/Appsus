@@ -1,25 +1,26 @@
 const { useState, Fragment } = React
-
 import { ColorPicker } from "./ColorPicker.jsx"
+import { DynamicControls } from "./DynamicCmps/DynamicControls.jsx"
 
-export function NoteControl({ onSetBgColor, onArchive, onTrash, onPin }) {
-
+export function NoteControl({ note, onSetBgColor, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
     const [paletteIsOpen, setPaletteIsOpen] = useState(false)
 
-    function onPaletteIsOpen() {
-        setPaletteIsOpen(!paletteIsOpen)
-    }
-
+    const togglePalette = () => setPaletteIsOpen(prev => !prev)
 
     return (
         <Fragment>
             <section className="note-control flex">
-                <img src="assets\img\note\palette.svg" alt="Palette icon" onClick={onPaletteIsOpen} />
-                <img src="assets\img\note\archive.svg" alt="Archive icon" onClick={onArchive} />
-                <img src="assets\img\note\trash.svg" alt="Trash icon" onClick={onTrash} />
-                <img src="assets\img\note\pin.svg" alt="Pin icon" onClick={onPin} />
+                <DynamicControls
+                    note={note}
+                    togglePalette={togglePalette}
+                    onArchive={() => onArchive(note.id)}
+                    onTrash={() => onTrash(note.id)}
+                    onPin={() => onPin(note.id)}
+                    onRestore={() => onRestore(note.id)}
+                    onDeleteForever={() => onDeleteForever(note.id)}
+                />
             </section>
-            {paletteIsOpen && <ColorPicker onSetBgColor={(color)=>onSetBgColor(color)}/>}
+            {paletteIsOpen && <ColorPicker onSetBgColor={(color) => onSetBgColor(color)} />}
         </Fragment>
     )
 }

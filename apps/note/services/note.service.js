@@ -11,21 +11,16 @@ export const noteService = {
 
 const KEY = 'notesDB'
 
-const noteStates = {
-    ACTIVE: 'active',
-    ARCHIVED: 'archived',
-    DELETED: 'deleted',
-    PINNED: 'pinned'
-}
 
-function query(stateFilter = noteStates.ACTIVE) {
-    return storageService.query(KEY, 500)
+function query(stateFilter) {
+    return storageService.query(KEY)
         .then(notes => {
             if (!notes || !notes.length) {
                 notes = notesData
                 _saveNotesToStorage()
             }
-            return notes.filter(note => note.state === stateFilter);
+
+            return notes.filter((note) => note.state === stateFilter)
         })
 }
 

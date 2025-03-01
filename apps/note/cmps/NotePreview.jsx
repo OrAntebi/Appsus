@@ -1,10 +1,13 @@
+import { SpecificNote } from './DynamicCmps/SpecificNote.jsx'
+
 export function NotePreview({ note }) {
-    const { info: { title } } = note
-    
+
     return (
-        <div className="note-preview">
-            <h2>{title}</h2>
+        <div className="note-preview flex column">
+            <SpecificNote note={note} />
         </div>
 
     )
 }
+
+

@@ -1,4 +1,7 @@
 .color-picker {
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
     gap: 0.5em;
 }
 
@@ -24,7 +27,7 @@
 }
 
 .color-picker .yellow {
-    background-color: #ffffe0;
+    background-color: #F0E68C;
 }
 
 .color-picker .blue {
@@ -43,4 +46,10 @@
 
 .color-picker input[type="radio"]:checked+label {
     border: 2px solid black;
+}
+
+.note-card:hover .color-picker {
+    opacity: 1;
+    max-height: 50px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
 }

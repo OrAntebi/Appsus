@@ -22,11 +22,6 @@ export function NoteIndex() {
     }, [filter])
 
     useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 800) setMenuLocked(true)
-            else setMenuLocked(false)
-        }
-
         window.addEventListener('resize', handleResize)
         handleResize()
 
@@ -46,6 +41,11 @@ export function NoteIndex() {
 
     function onMenuLocked() {
         setMenuLocked(!menuLock)
+    }
+
+    function handleResize() {
+        if (window.innerWidth < 800) setMenuLocked(true)
+        else setMenuLocked(false)
     }
 
     /*------- Note control actions -------*/
@@ -129,7 +129,7 @@ export function NoteIndex() {
             <NoteHeader filter={filter} menuLock={menuLock} onMenuLock={onMenuLocked} />
 
             <main className="note-index main-layout">
-                <Navigation onSetFilter={onSetFilter} menuLock={menuLock} />
+                <Navigation onSetFilter={onSetFilter} menuLock={menuLock} handleResize={handleResize} />
 
                 <section className="notes-main-content">
                     {loader && <Loader />}

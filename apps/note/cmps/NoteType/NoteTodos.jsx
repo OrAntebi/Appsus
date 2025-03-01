@@ -10,7 +10,7 @@ export function NoteTodos({ note }) {
             <ul className="clean-list">
                 {todos.map((todo, idx) => (
                     <li key={idx}>
-                        <input type="checkbox" checked={!!todo.doneAt} readOnly />
+                        <input type="checkbox" checked={!!todo.doneAt} />
                         <span>{todo.txt}</span>
                     </li>
                 ))}

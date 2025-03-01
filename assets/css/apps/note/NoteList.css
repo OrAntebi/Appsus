@@ -6,6 +6,9 @@
 
     .notes-container {
         flex-wrap: wrap;
+        column-count: 4;
+        column-width: 300px;
+        
 
         .note-card {
             position: relative;
@@ -15,6 +18,8 @@
             gap: .5em;
             padding: 1em;
             margin: 1em;
+            max-width: 400px;
+            break-inside: avoid;
 
             border-radius: 10px;
             background-color: blanchedalmond;

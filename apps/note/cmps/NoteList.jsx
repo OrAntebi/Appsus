@@ -8,7 +8,7 @@ export function NoteList({ notes, title, onSetBgColor, onTrash, onArchive, onPin
         <section className="note-list flex column">
             {title && notes.length > 0 && <h3 className="notes-title">{title}</h3>}
 
-            <section className="notes-container flex">
+            <section className="notes-container">
                 {notes.map(note => (
                     <article className="note-card flex column" key={note.id} style={note.style}>
                         <NotePreview note={note} />

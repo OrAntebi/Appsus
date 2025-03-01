@@ -12,7 +12,7 @@ export function AppHeader() {
     return <header className={`app-header header-layout ${isMenuOpen ? 'openedMenu' : ''}`}>
 
         <Link to="/">
-            <img src="assets\img\logo.png" alt="Appsus logo" className="main-logo" />
+            <img src="assets\img\logo.png" alt="Appsus logo" className="main-logo" onClick={isMenuOpen ? onToggleMenu : null} />
         </Link>
 
         <div className="overlay" onClick={onToggleMenu}></div>
@@ -24,8 +24,8 @@ export function AppHeader() {
             <ul className="clean-list">
                 <li><NavLink to="/" className="flex justify-center align-center" onClick={onToggleMenu}>Home</NavLink></li>
                 <li><NavLink to="/about" className="flex justify-center align-center" onClick={onToggleMenu}>About</NavLink></li>
-                <li><NavLink to="/mail" className="flex justify-center align-center" onClick={onToggleMenu}>Mail</NavLink></li>
-                <li><NavLink to="/note" className="flex justify-center align-center" onClick={onToggleMenu}>Note</NavLink></li>
+                <li><NavLink to="/mail" className="flex justify-center align-center" onClick={onToggleMenu}>Mister Mail</NavLink></li>
+                <li><NavLink to="/note" className="flex justify-center align-center" onClick={onToggleMenu}>Miss Keep</NavLink></li>
             </ul>
         </nav>
     </header>

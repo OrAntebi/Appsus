@@ -22,7 +22,7 @@ export function NoteIndex() {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 760) setMenuLocked(true)
+            if (window.innerWidth < 800) setMenuLocked(true)
             else setMenuLocked(false)
         }
 

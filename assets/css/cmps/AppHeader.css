@@ -1,7 +1,7 @@
 .app-header {
     position: relative;
     background: linear-gradient(120deg, #89f7fe, #66a6ff);
-    box-shadow: inset 0px -6px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 
     min-height: 80px;
     overflow: visible;
@@ -20,6 +20,8 @@
 
         transition: grid-template-rows .2s ease;
         background-color: #cccccce5;
+
+        z-index: 5;
 
         ul {
             display: flex;
@@ -58,6 +60,8 @@
         width: 100vw;
 
         background-color: rgba(0, 0, 0, 0.5);
+
+        z-index: 3;
     }
 
     .main-logo {
@@ -88,4 +92,35 @@ nav a.active {
 
 body:has(.app-header.openedMenu) {
     overflow-y: hidden
+}
+
+@media (min-width: 760px) {
+
+    .hamburger-menu-container {
+        display: none;
+    }
+
+    .overlay {
+        display: none;
+    }
+
+    .app-header .main-nav {
+        position: static;
+        display: block  ;
+        background-color: transparent;
+
+        ul {
+            flex-direction: row;
+
+            li {
+                border: none;
+                border-inline-start: 1px solid black;
+
+                &:last-child {
+                    border-inline-end: 1px solid black;
+                }
+            }
+
+        }
+    }
 }

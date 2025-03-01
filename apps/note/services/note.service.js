@@ -7,6 +7,7 @@ export const noteService = {
     getById,
     remove,
     save,
+    getEmptyNote
 }
 
 const KEY = 'notesDB'
@@ -34,6 +35,40 @@ function remove(noteId) {
 
 function save(note) {
     return note.id ? _updateNote(note) : _addNote(note)
+}
+
+function getEmptyNote(noteType) {
+    const emptyNote = {
+        // Optionally, you can generate an ID here or let the storage service handle it.
+        // id: utilService.makeId(),
+        createdAt: Date.now(),
+        type: noteType,
+        isPinned: false,
+        state: 'active',
+        style: {
+            backgroundColor: '#FFF8DC'
+        },
+        info: {}
+    }
+
+    switch (noteType) {
+        case 'NoteTxt':
+            emptyNote.info = { title: '', txt: '' }
+            break;
+        case 'NoteImg':
+            emptyNote.info = { title: '', url: '' }
+            break;
+        case 'NoteVideo':
+            emptyNote.info = { title: '', url: '' }
+            break;
+        case 'NoteTodos':
+            emptyNote.info = { title: '', todos: [] }
+            break;
+        default:
+            emptyNote.info = { title: '', txt: '' }
+    }
+
+    return emptyNote;
 }
 
 function _updateNote(note) {

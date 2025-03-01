@@ -71,13 +71,13 @@
 
     .hamburger-menu-container img {
         width: 2rem;
-
         padding: 5px;
         border-radius: 100vh;
 
         &:hover {
-            background-color: var(--hamburger-menu-bg);
             scale: 1.05;
+            background-color: var(--hover-bg);
+            cursor: pointer;
         }
 
         &:active {
@@ -94,7 +94,7 @@ body:has(.app-header.openedMenu) {
     overflow-y: hidden
 }
 
-@media (min-width: 760px) {
+@media (min-width: 800px) {
 
     .hamburger-menu-container {
         display: none;

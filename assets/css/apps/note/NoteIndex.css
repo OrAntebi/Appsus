@@ -1,0 +1,8 @@
+.note-index .notes-main-content {
+    grid-area: main;
+
+    max-height: 100vh;
+    padding-block: 2em;
+
+    overflow-y: scroll;
+}

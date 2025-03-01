@@ -7,11 +7,11 @@
     img {
         max-width: 2rem;
         padding: 7px;
+        border-radius: 100vh;
 
         &:hover {
             scale: 1.05;
-            border-radius: 100vh;
-            background-color: var(--hamburger-menu-bg);
+            background-color: var(--hover-bg);
             cursor: pointer;
         }
 
@@ -23,6 +23,6 @@
 
     .menuLock {
         border-radius: 100vh;
-        background-color: var(--hamburger-menu-bg); 
+        background-color: var(--hover-bg); 
     }
 }

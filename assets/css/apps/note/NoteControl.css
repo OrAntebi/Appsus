@@ -11,8 +11,19 @@
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
 
-    > * {
-        cursor: pointer;
+    >* {
+        border-radius: 100vh;
+        padding: .2em;
+
+        &:hover {
+            scale: 1.05;
+            background-color: var(--hover-bg);
+            cursor: pointer;
+        }
+
+        &:active {
+            scale: 0.95;
+        }
     }
 }
 

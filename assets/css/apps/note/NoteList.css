@@ -1,19 +1,24 @@
 .note-list {
-    flex-wrap: wrap;
     margin: 1rem;
 
     align-items: flex-start;
 
-    .note-card {
-        position: relative;
 
-        height: fit-content;
+    .notes-container {
+        flex-wrap: wrap;
 
-        gap: .5em;
-        padding: 1em;
-        margin: 1em;
+        .note-card {
+            position: relative;
 
-        border-radius: 10px;
-        background-color: blanchedalmond;
+            height: fit-content;
+
+            gap: .5em;
+            padding: 1em;
+            margin: 1em;
+
+            border-radius: 10px;
+            background-color: blanchedalmond;
+        }
     }
+
 }

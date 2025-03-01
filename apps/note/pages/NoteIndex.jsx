@@ -5,6 +5,7 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { UserMsg } from '../../../cmps/UserMsg.jsx'
 import { Loader } from '../cmps/Loader.jsx'
+import { NoteAdd } from '../cmps/NoteAdd.jsx'
 
 const { useEffect, useState, Fragment } = React
 const { Routes, Route } = ReactRouterDOM
@@ -130,50 +131,54 @@ export function NoteIndex() {
             <main className="note-index main-layout">
                 <Navigation onSetFilter={onSetFilter} menuLock={menuLock} />
 
-                {loader && <Loader />}
-                {!loader && <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Fragment>
-                                {pinnedNotes.length > 0 && <NoteList
-                                    notes={pinnedNotes}
-                                    title="Pinned"
-                                    onSetBgColor={onSetBgColor}
-                                    onTrash={onTrash}
-                                    onArchive={onArchive}
-                                    onPin={onPin}
-                                />}
-                                <NoteList
-                                    notes={unpinnedNotes}
-                                    title={pinnedNotes.length > 0 ? 'Others' : ''}
-                                    onSetBgColor={onSetBgColor}
-                                    onTrash={onTrash}
-                                    onArchive={onArchive}
-                                    onPin={onPin}
-                                />
-                            </Fragment>
-                        }
-                    />
-                    <Route
-                        path="/archive"
-                        element={<NoteList notes={notes}
-                            onSetBgColor={onSetBgColor}
-                            onTrash={onTrash}
-                            onRestore={onRestore}
-                        />}
-                    />
-                    <Route
-                        path="/trash"
-                        element={
-                            <NoteList
-                                notes={notes}
-                                onDeleteForever={onDeleteForever}
+                <section className="notes-main-content">
+                    {loader && <Loader />}
+                    {!loader && <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Fragment>
+                                    <NoteAdd />
+                                    {pinnedNotes.length > 0 && <NoteList
+                                        notes={pinnedNotes}
+                                        title="Pinned"
+                                        onSetBgColor={onSetBgColor}
+                                        onTrash={onTrash}
+                                        onArchive={onArchive}
+                                        onPin={onPin}
+                                    />}
+                                    <NoteList
+                                        notes={unpinnedNotes}
+                                        title={pinnedNotes.length > 0 ? 'Others' : ''}
+                                        onSetBgColor={onSetBgColor}
+                                        onTrash={onTrash}
+                                        onArchive={onArchive}
+                                        onPin={onPin}
+                                    />
+                                </Fragment>
+                            }
+                        />
+                        <Route
+                            path="/archive"
+                            element={<NoteList notes={notes}
+                                onSetBgColor={onSetBgColor}
+                                onTrash={onTrash}
                                 onRestore={onRestore}
-                            />
-                        }
-                    />
-                </Routes>}
+                            />}
+                        />
+                        <Route
+                            path="/trash"
+                            element={
+                                <NoteList
+                                    notes={notes}
+                                    onDeleteForever={onDeleteForever}
+                                    onRestore={onRestore}
+                                />
+                            }
+                        />
+                    </Routes>}
+                </section>
+
             </main>
 
             <UserMsg />

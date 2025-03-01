@@ -24,7 +24,7 @@ export const notesData = [
         },
         info: {
             title: 'Bobi and Me',
-            url: 'https://picsum.photos/300/200'
+            url: 'https://picsum.photos/200'
         }
     },
     {

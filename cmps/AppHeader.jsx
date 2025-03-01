@@ -24,7 +24,7 @@ export function AppHeader() {
             <ul className="clean-list">
                 <li><NavLink to="/" className="flex justify-center align-center" onClick={onToggleMenu}>Home</NavLink></li>
                 <li><NavLink to="/about" className="flex justify-center align-center" onClick={onToggleMenu}>About</NavLink></li>
-                <li><NavLink to="/mail" className="flex justify-center align-center" onClick={onToggleMenu}>Mister Mail</NavLink></li>
+                <li><NavLink to="/mail" className="flex justify-center align-center" onClick={onToggleMenu}>Mister Email</NavLink></li>
                 <li><NavLink to="/note" className="flex justify-center align-center" onClick={onToggleMenu}>Miss Keep</NavLink></li>
             </ul>
         </nav>

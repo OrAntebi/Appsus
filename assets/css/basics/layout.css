@@ -11,6 +11,7 @@
     grid-template-areas:
         "sidebar main"
         "sidebar main";
+    height: calc(100vh - 174px);
 }
 
 .header-layout {

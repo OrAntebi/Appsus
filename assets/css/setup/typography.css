@@ -15,3 +15,18 @@
 
 /* ------- */
 
+.fa.font::before {
+    content: '\f031';
+}
+
+.fa.list::before {
+    content: '\f03a';
+}
+
+.fa.image::before {
+    content: '\f03e';
+}
+
+.fa.video::before {
+    content: '\f03d';
+}

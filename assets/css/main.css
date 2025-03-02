@@ -19,6 +19,7 @@
 @import './apps/note/NoteControl.css';
 @import './apps/note/ColorPicker.css';
 @import './apps/note/EmptyTabMsg.css';
+@import './apps/note/NoteAdd.css';
 
 /* MAIL */
 @import './apps/mail/MailIndex.css';

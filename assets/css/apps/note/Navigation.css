@@ -15,6 +15,9 @@
             align-self: center;
             width: 100%;
             padding: 1em 10em 1em 1em;
+
+            opacity: 1;
+            transition: 100ms ease;
         }
 
     }
@@ -29,16 +32,13 @@
 .navigation.menuIsLock .nav-link {
     max-width: 0;
     padding: 0;
+
     opacity: 0;
     overflow: hidden;
-    transition: 400ms ease;
+    transition: 100ms ease;
+
 }
 
-.navigation:not(.menuIsLock) .nav-link {
-    opacity: 1;
-    transition: 200ms ease;
-}
-
-@media (min-width: 800px) {
-    
+.navigation.menuIsLock .nav-item:has(a.active) {
+    border-radius: 100vh;
 }

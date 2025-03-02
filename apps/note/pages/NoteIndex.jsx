@@ -17,7 +17,6 @@ export function NoteIndex() {
     const [menuLock, setMenuLocked] = useState(false)
 
     useEffect(() => {
-        setLoader(true)
         loadNotes()
     }, [filter])
 
@@ -29,6 +28,7 @@ export function NoteIndex() {
     }, [])
 
     function loadNotes() {
+        setLoader(true)
         noteService.query(filter)
             .then(fetchedNotes => setNotes(fetchedNotes))
             .catch(err => showErrorMsg(`Failed to load notes: ${err.message}`))
@@ -40,7 +40,7 @@ export function NoteIndex() {
     }
 
     function onMenuLocked() {
-        setMenuLocked(!menuLock)
+        setMenuLocked(prevState => !prevState)
     }
 
     function handleResize() {
@@ -48,32 +48,38 @@ export function NoteIndex() {
         else setMenuLocked(false)
     }
 
+    function onAddNote(newNote) {
+        noteService.save(newNote)
+            .then(savedNote => {
+                setNotes(prevNotes => [savedNote, ...prevNotes])
+                showSuccessMsg('Note added successfully!')
+            })
+            .catch(err => showErrorMsg(`Failed to add note: ${err.message}`))
+    }
+
+
     /*------- Note control actions -------*/
 
     function onSetBgColor(noteId, color) {
         noteService.getById(noteId)
             .then(note => {
-                const updatedNote = {
-                    ...note,
-                    style: { ...note.style, backgroundColor: color }
-                }
+                const updatedNote = { ...note, style: { ...note.style, backgroundColor: color } }
                 return noteService.save(updatedNote)
             })
             .then(updatedNote => {
-                setNotes(prevNotes =>
-                    prevNotes.map(note =>
-                        note.id === noteId ? updatedNote : note
-                    )
-                )
+                setNotes(prevNotes => prevNotes.map(note => note.id === updatedNote.id ? updatedNote : note))
             })
             .catch(err => showErrorMsg(`Failed to update color: ${err.message}`))
     }
 
     function onArchive(noteId) {
         noteService.getById(noteId)
-            .then(note => noteService.save({ ...note, state: 'archived', isPinned: false }))
-            .then(() => {
-                loadNotes()
+            .then(note => {
+                const updatedNote = { ...note, state: 'archived', isPinned: false }
+                return noteService.save(updatedNote)
+            })
+            .then(updatedNote => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== updatedNote.id))
                 showSuccessMsg('Note successfully moved to archive!')
             })
             .catch(err => showErrorMsg(`Failed to move note to archive: ${err.message}`))
@@ -81,10 +87,13 @@ export function NoteIndex() {
 
     function onTrash(noteId) {
         noteService.getById(noteId)
-            .then(note => noteService.save({ ...note, state: 'deleted', isPinned: false }))
-            .then(() => {
+            .then(note => {
+                const updatedNote = { ...note, state: 'deleted', isPinned: false }
+                return noteService.save(updatedNote)
+            })
+            .then(updatedNote => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== updatedNote.id))
                 showSuccessMsg('Note successfully moved to trash!')
-                loadNotes()
             })
             .catch(err => showErrorMsg(`Failed to move note to trash: ${err.message}`))
     }
@@ -95,9 +104,9 @@ export function NoteIndex() {
                 const updatedNote = { ...note, isPinned: !note.isPinned }
                 return noteService.save(updatedNote)
             })
-            .then((updatedNote) => {
+            .then(updatedNote => {
+                setNotes(prevNotes => prevNotes.map(note => (note.id === updatedNote.id ? updatedNote : note)))
                 showSuccessMsg(`Note successfully ${updatedNote.isPinned ? 'pinned' : 'unpinned'}!`)
-                loadNotes()
             })
             .catch(err => showErrorMsg(`Failed to toggle pin: ${err.message}`))
     }
@@ -113,16 +122,21 @@ export function NoteIndex() {
 
     function onRestore(noteId) {
         noteService.getById(noteId)
-            .then(note => noteService.save({ ...note, state: 'active' }))
-            .then(() => {
-                showSuccessMsg('Note successfully moved to active!')
-                loadNotes()
+            .then(note => {
+                const updatedNote = { ...note, state: 'active' }
+                return noteService.save(updatedNote)
             })
-            .catch(err => showErrorMsg(`Failed to move note to active: ${err.message}`))
+            .then(updatedNote => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== updatedNote.id))
+                showSuccessMsg('Note successfully restored!')
+            })
+            .catch(err => showErrorMsg(`Failed to restore note: ${err.message}`))
     }
+
 
     const pinnedNotes = notes.filter(note => note.isPinned)
     const unpinnedNotes = notes.filter(note => !note.isPinned)
+
 
     return (
         <Fragment>
@@ -138,7 +152,7 @@ export function NoteIndex() {
                             path="/"
                             element={
                                 <Fragment>
-                                    <NoteAdd />
+                                    <NoteAdd onAddNote={onAddNote} />
                                     {pinnedNotes.length > 0 && <NoteList
                                         notes={pinnedNotes}
                                         title="Pinned"

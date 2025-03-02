@@ -2,7 +2,7 @@
     grid-area: main;
 
     max-height: 100vh;
-    padding-block: 2em;
+    padding-block: 1rem;
 
     overflow-y: scroll;
 }

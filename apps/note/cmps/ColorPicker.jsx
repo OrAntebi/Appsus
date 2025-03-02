@@ -17,6 +17,9 @@ export function ColorPicker({ onSetBgColor }) {
 
             <input type="radio" id="green" name="color" className="input-hidden" />
             <label htmlFor="green" className="color green" title="Light green" onClick={() => handleColorChange('#90ee90')}></label>
+
+            <input type="radio" id="purple" name="color" className="input-hidden" />
+            <label htmlFor="purple" className="color purple" title="Light purpule" onClick={() => handleColorChange('#CBC3E3')}></label>
         </section>
 
     )

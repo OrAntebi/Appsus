@@ -39,8 +39,6 @@ function save(note) {
 
 function getEmptyNote(noteType) {
     const emptyNote = {
-        // Optionally, you can generate an ID here or let the storage service handle it.
-        // id: utilService.makeId(),
         createdAt: Date.now(),
         type: noteType,
         isPinned: false,

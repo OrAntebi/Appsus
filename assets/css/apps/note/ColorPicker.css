@@ -20,6 +20,7 @@
     border-radius: 100vh;
     cursor: pointer;
     transition: transform 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .color-picker .red {
@@ -38,6 +39,10 @@
     background-color: #90ee90;
 }
 
+.color-picker .purple {
+    background-color: #CBC3E3;
+}
+
 
 .color-picker .color:hover {
     transform: scale(1.1);
@@ -46,6 +51,10 @@
 
 .color-picker input[type="radio"]:checked+label {
     border: 2px solid black;
+}
+
+.note-card:not(:hover) .color-picker {
+    display: none;
 }
 
 .note-card:hover .color-picker {

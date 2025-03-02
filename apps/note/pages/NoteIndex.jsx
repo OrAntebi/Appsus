@@ -174,17 +174,21 @@ export function NoteIndex() {
                         />
                         <Route
                             path="/archive"
-                            element={<NoteList notes={notes}
-                                onSetBgColor={onSetBgColor}
-                                onTrash={onTrash}
-                                onRestore={onRestore}
-                            />}
+                            element={
+                                <NoteList
+                                    notes={notes}
+                                    title="Archive"
+                                    onSetBgColor={onSetBgColor}
+                                    onTrash={onTrash}
+                                    onRestore={onRestore}
+                                />}
                         />
                         <Route
                             path="/trash"
                             element={
                                 <NoteList
                                     notes={notes}
+                                    title="Trash"
                                     onDeleteForever={onDeleteForever}
                                     onRestore={onRestore}
                                 />

@@ -1,0 +1,15 @@
+.empty-tab-msg-container {
+    filter: opacity(0.2);
+    margin-block: 6rem;
+
+    img {
+        width: 8rem;
+
+    }
+
+    h1 {
+        padding: .2em 1em;
+        font-size: 3rem;
+        text-align: center;
+    }
+}

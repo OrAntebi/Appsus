@@ -1,8 +1,10 @@
 import { NotePreview } from './NotePreview.jsx'
 import { NoteControl } from './NoteControl.jsx'
+import { EmptyTabMsg } from '../cmps/EmptyTabMsg.jsx'
 
 export function NoteList({ notes, title, onSetBgColor, onTrash, onArchive, onPin, onRestore, onDeleteForever }) {
 
+    if (notes.length === 0) return <EmptyTabMsg tabName={title || 'Notes'} />;
 
     return (
         <section className="note-list flex column">

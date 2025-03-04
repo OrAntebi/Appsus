@@ -4,9 +4,12 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
+    padding-top: 0;
     margin-left: 20px;
+    margin-top: 0;
     width: calc(100% - 20px);
     box-sizing: border-box;
+
 }
 
 html, body {
@@ -21,6 +24,7 @@ html, body {
     margin: 0;
     list-style: none;
     width: 100%;
+
 }
 
 .mail-preview {
@@ -82,4 +86,5 @@ html, body {
     opacity: 1;
     transform: scale(1);
 }
+
 

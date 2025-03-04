@@ -107,6 +107,8 @@
     right: 15px;
     display: none;
     gap: 8px;
+    position: relative;
+    z-index: 10;
 }
 
 .mail-preview:hover .mail-actions {
@@ -164,6 +166,7 @@
     padding: 5px;
     border-radius: 4px;
     transition: background-color 0.2s;
+    z-index: 1;
 }
 
 .action-btn:hover {
@@ -188,7 +191,8 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s, visibility 0.2s;
-    z-index: 100;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 .action-btn:hover .tooltip,

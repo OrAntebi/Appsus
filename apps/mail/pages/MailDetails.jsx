@@ -87,7 +87,7 @@ export function MailDetails() {
                 </div>
             </div>
     
-            <div className="mail-body">
+            <div className="mail-body-content">
                 {mail.body ? <p>{mail.body}</p> : <p className="empty-msg">No content available</p>}
             </div>
         </section>

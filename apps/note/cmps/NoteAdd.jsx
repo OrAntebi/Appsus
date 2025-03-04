@@ -35,7 +35,9 @@ export function NoteAdd({ onAddNote }) {
         })
     }
 
-    function handleSave() {
+    function handleSubmit(ev) {
+        ev.preventDefault()
+
         const { type, info } = noteToAdd
         const { title, txt, todos, url } = info
         let isEmpty = false
@@ -61,18 +63,13 @@ export function NoteAdd({ onAddNote }) {
         })
     }
 
-    function handleSubmit(ev) {
-        ev.preventDefault()
-        handleSave()
-    }
-
     return (
         <section className="note-add flex">
             {!isOpen ? (
-                <NoteAddClosed 
-                    noteTypes={NOTE_TYPES} 
-                    onOpen={() => setIsOpen(true)} 
-                    onTypeClick={handleTypeChange} 
+                <NoteAddClosed
+                    noteTypes={NOTE_TYPES}
+                    onOpen={() => setIsOpen(true)}
+                    onTypeClick={handleTypeChange}
                 />
             ) : (
                 <NoteAddOpen

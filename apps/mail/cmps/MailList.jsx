@@ -20,7 +20,7 @@ export function MailList({ mails, onToggleStar, onToggleRead, onRemove, onRestor
     if (!mails || !mails.length) return <p>No emails to show</p>
 
     return ( 
-        <div className='mail-box'>
+        <div className='mail-list-container'>
             {/* "Select All" Checkbox */}
             <div className="select-all-container">
                 <input

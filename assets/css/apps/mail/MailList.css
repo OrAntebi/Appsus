@@ -1,5 +1,5 @@
 .mail-list-container {
-    height: auto;
+    height: 100vh;
     max-height: 75vh;
     overflow-y: auto;
     overflow-x: hidden;

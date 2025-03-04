@@ -20,7 +20,7 @@ export function MailDetails() {
             setMail(mailData)
         }).catch(() => navigate('/mail'))
     }, [mailId])
-
+    
     function toggleReadStatus() {
         const updatedMail = { ...mail, isRead: !mail.isRead }
         mailService.update(updatedMail).then(setMail)
@@ -59,39 +59,37 @@ export function MailDetails() {
     if (!mail) return <p>Loading...</p>
 
     return (
-        <section className="mail-details">
-            <button onClick={() => navigate(-1)}>← Back</button>
-            <button onClick={forwardMail}>Forward</button>
-            <h2>{mail.subject}</h2>
-            <h4>From: {mail.from}</h4>
-            <h4>To: {mail.to}</h4>
-            <p>{mail.body}</p>
+        <section className="mail-open">
 
-            <button onClick={toggleStar}>
-                {mail.isStared ? '★ Starred' : '☆ Star'}
-            </button>
-
-            <button onClick={toggleReadStatus}>
-                {mail.isRead ? 'Mark as Unread' : 'Mark as Read'}
-            </button>
-
-            {mail.removedAt ? (
-                <button onClick={() => mailService.restore(mail.id).then(() => navigate('/mail'))}>
-                    Restore
+            <div className="mail-toolbar">
+                <button onClick={() => navigate(-1)}>
+                    <i className="fas fa-arrow-left"></i> Back
                 </button>
-            ) : (
-                <button onClick={() => mailService.remove(mail.id).then(() => navigate('/mail'))}>
-                    Move to Trash
+                <button onClick={toggleStar}>
+                    <i className={`fa-star ${mail.isStared ? 'fas' : 'far'}`}></i>
                 </button>
-            )}
-
-            <button onClick={replyToMail}>Reply</button>
-            <div className="labels">
-                <button onClick={() => toggleLabel('Work')}>Work</button>
-                <button onClick={() => toggleLabel('Personal')}>Personal</button>
-                <button onClick={() => toggleLabel('Important')}>Important</button>
+                <button onClick={replyToMail}>
+                    <i className="fas fa-reply"></i> Reply
+                </button>
+                <button onClick={forwardMail}>
+                    <i className="fas fa-share"></i> Forward
+                </button>
+                <button onClick={deleteMail}>
+                    <i className="fas fa-trash"></i> Trash
+                </button>
+            </div>
+    
+            <div className="mail-title">
+                <h2>{mail.subject}</h2>
+                <div className="mail-meta">
+                    <span className="mail-from"><strong>{mail.from}</strong> - {new Date(mail.sentAt).toLocaleString()}</span>
+                    <span className="mail-to">To: {mail.to}</span>
+                </div>
+            </div>
+    
+            <div className="mail-body">
+                {mail.body ? <p>{mail.body}</p> : <p className="empty-msg">No content available</p>}
             </div>
         </section>
-        
-    )
+    ) 
 }

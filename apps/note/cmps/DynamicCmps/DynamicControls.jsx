@@ -12,7 +12,6 @@ export function DynamicControls({ note, togglePalette, onArchive, onTrash, onPin
                         src="assets/img/note/edit.svg"
                         title="Edit"
                         alt="Edit "
-                        onClick={toggleEdit}
                     />
                     <img
                         key="palette"

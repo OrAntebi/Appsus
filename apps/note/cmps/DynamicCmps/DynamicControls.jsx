@@ -8,6 +8,13 @@ export function DynamicControls({ note, togglePalette, onArchive, onTrash, onPin
             return (
                 <Fragment>
                     <img
+                        key="edit"
+                        src="assets/img/note/edit.svg"
+                        title="Edit"
+                        alt="Edit "
+                        onClick={toggleEdit}
+                    />
+                    <img
                         key="palette"
                         src="assets/img/note/palette.svg"
                         title="Palette"

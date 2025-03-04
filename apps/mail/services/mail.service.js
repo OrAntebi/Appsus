@@ -293,16 +293,14 @@ export const mailService = {
 
 function query(filterBy = {}) {
     let storedMails = JSON.parse(localStorage.getItem('mails')) || []
-
     let mergedMails = [...mails.filter(mail => !storedMails.some(m => m.id === mail.id)), ...storedMails]
-
     let filteredMails = mergedMails
 
     if (filterBy.status) {
         if (filterBy.status === 'inbox') {
             filteredMails = filteredMails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.status)
         } else if (filterBy.status === 'sent') {
-            filteredMails = filteredMails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && mail.status === 'sent') // ✅ Ensure it checks for sent status
+            filteredMails = filteredMails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && mail.status === 'sent')
         } else if (filterBy.status === 'trash') {
             filteredMails = filteredMails.filter(mail => mail.removedAt)
         } else if (filterBy.status === 'draft') {
@@ -321,13 +319,13 @@ function query(filterBy = {}) {
         filteredMails = filteredMails.filter(mail => mail.isRead === filterBy.isRead)
     }
 
-    if (filterBy.hasOwnProperty('isStared') && filterBy.isStared !== null) {
-        filteredMails = filteredMails.filter(mail => mail.isStared === filterBy.isStared)
+    if (filterBy.hasOwnProperty('isStared') && filterBy.isStared === true) {
+        filteredMails = filteredMails.filter(mail => mail.isStared === true)
     }
 
     if (filterBy.labels && filterBy.labels.length) {
         filteredMails = filteredMails.filter(mail => {
-            return filterBy.labels.some(label => mail.labels.includes(label))
+            return mail.labels && filterBy.labels.some(label => mail.labels.includes(label))
         })
     }
 
@@ -450,11 +448,20 @@ function restore(mailId) {
 function toggleLabel(mailId, label) {
     const mail = mails.find(mail => mail.id === mailId)
     if (!mail) return Promise.reject('Mail not found')
-
+    
+    if (!mail.labels) mail.labels = []
+    
     if (!mail.labels.includes(label)) {
         mail.labels.push(label)
     } else {
         mail.labels = mail.labels.filter(l => l !== label)
+    }
+
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+    const mailIndex = storedMails.findIndex(m => m.id === mailId)
+    if (mailIndex !== -1) {
+        storedMails[mailIndex] = mail
+        localStorage.setItem('mails', JSON.stringify(storedMails))
     }
 
     return Promise.resolve(mail)

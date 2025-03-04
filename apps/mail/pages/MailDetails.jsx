@@ -11,13 +11,19 @@ export function MailDetails() {
 
     useEffect(() => {
         setMail(null) 
-
+    
         mailService.get(mailId).then(mailData => {
             if (!mailData) {
                 navigate('/mail') 
                 return
             }
-            setMail(mailData)
+            
+            if (!mailData.isRead) {
+                const updatedMail = { ...mailData, isRead: true }
+                mailService.update(updatedMail).then(setMail)
+            } else {
+                setMail(mailData)
+            }
         }).catch(() => navigate('/mail'))
     }, [mailId])
     
@@ -31,17 +37,14 @@ export function MailDetails() {
         mailService.update(updatedMail).then(setMail)
     }    
 
-    function deleteMail() {
-        mailService.remove(mailId).then(() => navigate('/mail'))
-    }
-
     function replyToMail() {
         navigate(`/mail/compose?to=${mail.from}&subject=Re: ${mail.subject}`)
     }
 
     function toggleLabel(label) {
+        if (!mail.labels) mail.labels = []
         mailService.toggleLabel(mail.id, label).then(setMail)
-    }    
+    }  
 
     function deleteMail() {
         if (mail.removedAt) {
@@ -87,7 +90,7 @@ export function MailDetails() {
                 </div>
             </div>
     
-            <div className="mail-body-content">
+            <div className="mail-body">
                 {mail.body ? <p>{mail.body}</p> : <p className="empty-msg">No content available</p>}
             </div>
         </section>

@@ -3,8 +3,9 @@ const useState = React.useState
 const useEffect = React.useEffect
 
 import { mailService } from '../services/mail.service.js'
+import { utilService } from '../../../services/util.service.js'
 
-export function MailCompose( onClose ) {
+export function MailCompose({ onClose }) {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const [mail, setMail] = useState({
@@ -18,7 +19,20 @@ export function MailCompose( onClose ) {
         if (draftId) {
             mailService.get(draftId).then(setMail)
         } 
-    }, [])            
+
+        const to = searchParams.get('to')
+        const subject = searchParams.get('subject')
+        const body = searchParams.get('body')
+
+        if (to || subject || body) {
+            setMail(prevMail => ({
+                ...prevMail,
+                to: to || prevMail.to,
+                subject: subject || prevMail.subject,
+                body: body ? `\n\n${body}` : prevMail.body
+            }))
+        }
+    }, [searchParams])            
 
     useEffect(() => {
         const saveTimeout = setTimeout(() => {
@@ -41,15 +55,7 @@ export function MailCompose( onClose ) {
             navigate('/mail')
             onClose()
         })
-    }  
-    
-    function saveMail(mail) {
-        mail.id = utilService.makeId()
-        mail.sentAt = Date.now()
-        mails.push(mail) 
-        _saveMailsToStorage()
-        return Promise.resolve(mail)
-    }    
+    }       
 
     function discardDraft() {
         if (mail.id) {
@@ -59,38 +65,53 @@ export function MailCompose( onClose ) {
     }
 
     return (
-        <div className="mail-compose">
-            <header className="compose-header">
-                <span>New Message</span>
-                <button className="close-btn" onClick={discardDraft}>✖</button>
-            </header>
-            <form onSubmit={sendMail}>
-                <input 
-                    type="email" 
-                    name="to" 
-                    placeholder="To" 
-                    value={mail.to} 
-                    onChange={handleChange} 
-                    required 
-                />
-                <input 
-                    type="text" 
-                    name="subject" 
-                    placeholder="Subject" 
-                    value={mail.subject} 
-                    onChange={handleChange} 
-                />
-                <textarea 
-                    name="body" 
-                    placeholder="Write your email..." 
-                    value={mail.body} 
-                    onChange={handleChange} 
-                ></textarea>
-                <footer className="compose-footer">
-                    <button type="submit" className="send-btn">Send</button>
-                    <button type="button" className="discard-btn" onClick={discardDraft}>Discard</button>
-                </footer>
-            </form>
+        <div className="compose-overlay">
+            <div className="mail-compose">
+                <header className="compose-header">
+                    <span>New Message</span>
+                    <div className="compose-controls">
+                        <button className="minimize-btn">_</button>
+                        <button className="maximize-btn">□</button>
+                        <button className="close-btn" onClick={discardDraft}>×</button>
+                    </div>
+                </header>
+                
+                <form onSubmit={sendMail}>
+                    <div className="compose-field">
+                        <label>To</label>
+                        <input 
+                            type="email" 
+                            name="to" 
+                            value={mail.to} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    
+                    <div className="compose-field">
+                        <label>Subject</label>
+                        <input 
+                            type="text" 
+                            name="subject" 
+                            value={mail.subject} 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="compose-body">
+                        <textarea 
+                            name="body" 
+                            value={mail.body} 
+                            onChange={handleChange} 
+                        ></textarea>
+                    </div>
+                    
+                    <footer className="compose-footer">
+                        <button type="submit" className="send-btn">Send</button>
+                        <button type="button" className="discard-btn" onClick={discardDraft}>Discard</button>
+                    </footer>
+                </form>
+            </div>
         </div>
     )
 }

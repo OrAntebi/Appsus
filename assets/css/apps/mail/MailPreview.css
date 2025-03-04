@@ -1,117 +1,198 @@
-.mail-preview.read {
-    background-color: #e0e0e0 !important;
-    color: #777 !important;
-    font-weight: normal !important;
-}
-
-.mail-preview.unread {
-    background-color: white;
-    font-weight: bold;
-}
-
 .mail-preview {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    gap: 8px;
+    padding: 10px 12px;
     border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .mail-preview:hover {
-    background: #f5f5f5; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-    transform: scale(1.02); 
-    border-radius: 5px;
-    animation: pop0ut 0.2s ease-in-out;
+    background: #f5f5f5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    border-radius: 5px
 }
 
-.mail-preview.unread:hover {
-    background-color: #f2f6fc !important;
+.mail-preview.read {
+    background-color: #ffffff;
+    color: #777
 }
 
-.mail-preview.read:hover {
-    background-color: white !important;
+.mail-preview.unread {
+    background-color: #f2f6fc;
 }
 
 .mail-left {
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: 250px;
-}
-
-.mail-sender {
-    font-size: 16px;
-}
-
-.mail-sender.bold {
-    font-weight: bold;
-}
-
-.mail-content {
-    flex: 2;
-}
-
-.mail-content {
-    flex: 1;
+    width: 200px;
+    min-width: 200px;
+    margin-right: 10px;
+    font-size: 14px;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
-.mail-content p {
-    font-size: 10px;
-    color: #555;
-}
-
-.mail-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.star-btn, .trash-btn, .restore-btn, .view-mail-btn {
-    border: none;
+.star-btn {
     background: none;
-    font-size: 28px;
+    border: none;
     cursor: pointer;
-    transition: color 0.2s;
+    font-size: 25px;
+    margin-right: 8px;
+    color: #aaa;
+    transition: color 0.2s
 }
 
 .star-btn:hover {
-    color: gold;
+    color: gold
 }
 
-.trash-btn:hover {
-    color: red;
+.mail-content {
+    display: flex;
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: baseline
 }
 
-.view-mail-btn {
-    background-color: #1a73e8;
+.mail-subject {
+    font-weight: bold;
+    min-width: 300px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.mail-preview.read .mail-subject {
+    font-weight: normal
+}
+
+.mail-separator {
+    margin: 0 5px;
+    color: #777
+}
+
+.mail-body {
+    flex: 1;
+    font-weight: normal !important;
+    color: #5f6368;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.mail-preview.unread .mail-body {
+    font-weight: normal !important
+}
+
+.mail-timestamp {
+    min-width: 100px;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    padding-right: 15px;
+}
+
+.mail-preview:hover .mail-timestamp {
+    opacity: 0
+}
+
+.mail-actions {
+    position: absolute;
+    right: 15px;
+    display: none;
+    gap: 8px;
+}
+
+.mail-preview:hover .mail-actions {
+    display: flex;
+}
+
+.mail-preview:hover .mail-timestamp {
+    display: none;
+}
+
+.mail-checkbox {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out
+}
+
+.mail-checkbox:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.checkbox-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    z-index: 20
 }
 
-.view-mail-btn:hover {
-    background-color: #1257b7;
+.mail-checkbox:hover .checkbox-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-3px)
 }
 
-.mail-actions button {
+.action-btn {
+    position: relative;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
-@keyframes popOut {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.02);
-    }
+.action-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
+.mail-checkbox {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 100;
+}
+
+.action-btn:hover .tooltip,
+.mail-checkbox:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}

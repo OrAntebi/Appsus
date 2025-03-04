@@ -56,4 +56,23 @@
     max-height: none;
 }
 
+.mail-body {
+    padding: 15px 0;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word
+}
+
+.mail-body p {
+    margin-bottom: 15px
+}
+
+.empty-msg {
+    color: #777;
+    font-style: italic
+}
+
 

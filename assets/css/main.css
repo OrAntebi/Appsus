@@ -30,6 +30,7 @@
 @import './apps/mail/MailHeader.css';
 @import './apps/mail/Sidebar.css';
 @import './apps/mail/MailDetails.css';
+@import './apps/mail/MailCompose.css';
 
 /* SETUP */
 @import './setup/typography.css';

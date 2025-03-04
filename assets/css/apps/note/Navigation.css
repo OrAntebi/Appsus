@@ -19,11 +19,9 @@
             opacity: 1;
             transition: 100ms ease;
         }
-
     }
 
     .nav-item:has(a.active) {
-        border-radius: 0 100vh 100vh 0;
         background-color: var(--nav-active-bg);
 
     }

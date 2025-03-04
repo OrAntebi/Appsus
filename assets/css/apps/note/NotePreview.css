@@ -1,4 +1,50 @@
 .note-preview {
+    display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
+
+    .todo-item {
+        display: flex;
+        align-items: center;
+
+        .todo-label {
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .todo-checkbox {
+                position: relative;
+
+                margin-right: 10px;
+                width: 1rem;
+
+                &:checked+.todo-text::after {
+                    width: 100%;
+                }
+            }
+
+            .todo-text {
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+                transition: color 0.3s ease;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 40%;
+                    left: 0;
+                    width: 0;
+                    height: 1.5px;
+                    background-color: #000000;
+                    transition: width 0.5s ease-in-out;
+                }
+            }
+        }
+    }
+
+    .todo-label .todo-checkbox:checked+.todo-text::after {
+        width: 100%;
+    }
 }

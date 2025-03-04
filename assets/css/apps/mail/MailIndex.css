@@ -1,5 +1,3 @@
- /* mail index  */
- /* ======= GENERAL STYLES ======= */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f6f8fc;
@@ -7,56 +5,34 @@ body {
     overflow: hidden;
 }
 
-/* ======= CONTAINER LAYOUT ======= */
 .container {
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 60px);
+    margin-top: 60px; 
+    overflow: hidden;
 }
 
-/* ======= SIDEBAR ======= */
-.sidebar {
-    width: 250px;
-    background-color: white;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar button {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 12px 20px;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 24px;
-    transition: background 0.2s ease;
-}
-
-.sidebar button span {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-.sidebar button:hover {
-    background: #eaf1fb;
-}
-
-/* ======= MAIL SECTION ======= */
 .mail-list-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: padding-left 0.3s ease-in-out;
 }
 
-/* Header (Search & Filters) */
+.mail-list {
+    background-color: white;
+    margin: 10px;
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .mail-header {
     display: flex;
     align-items: center;
@@ -75,17 +51,6 @@ body {
     border-radius: 20px;
 }
 
-/* Mail List */
-.mail-list {
-    background-color: white;
-    margin-top: 10px;
-    border-radius: 8px;
-    overflow-y: auto;
-    flex-grow: 1;
-    padding: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .mail-labels {
     margin-top: 5px;
     display: flex;
@@ -100,12 +65,13 @@ body {
     color: white;
 }
 
-.label.work { background: #2a9d8f; }
-.label.personal { background: #e76f51; }
-.label.important { background: #f4a261; }
-.label.spam { background: #e63946; }
-.label.romantic { background: #ff6b6b; }
-.label.funny { background: #f8961e; }
-.label.news { background: #577590; }
-.label.finance { background: #6a0572; }
+.mail-preview-wrapper {
+    width: 100%;
+    overflow: hidden;
+    min-height: 75px;
+}
+
+
+
+
 

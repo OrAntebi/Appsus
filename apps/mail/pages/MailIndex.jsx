@@ -15,6 +15,7 @@ export function MailIndex() {
     const [isLoading, setIsLoading] = useState(true)
     const [isComposing, setIsComposing] = useState(false)
     const navigate = useNavigate()
+    const [allSelected, setAllSelected] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -44,7 +45,11 @@ export function MailIndex() {
 
     function toggleStar(mail) {
         const updatedMail = { ...mail, isStared: !mail.isStared }
-        mailService.update(updatedMail).then(() => loadMails())
+        mailService.update(updatedMail).then(() => {
+            setMails(prevMails => 
+                prevMails.map(m => m.id === mail.id ? updatedMail : m)
+            )
+        })
     }
 
     function setLabelFilter(label) {
@@ -70,13 +75,31 @@ export function MailIndex() {
     }
 
     function setFolder(status) {
-        setFilterBy(prevFilter => ({ ...prevFilter, status }))
+        // Update this function
+        if (status === 'starred') {
+            setFilterBy(prevFilter => ({ 
+                ...prevFilter, 
+                status: 'inbox', 
+                isStared: true 
+            }))
+        } else {
+            setFilterBy(prevFilter => ({ 
+                ...prevFilter, 
+                status, 
+                isStared: null 
+            }))
+        }
     }
 
     function handleRemove(mailId) {
         mailService.remove(mailId).then(() => {
             setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
         })
+    }
+
+    function handleSelectAll(ev) {
+        const isChecked = ev.target.checked
+        setAllSelected(isChecked)
     }
 
     function handleRestore(mailId) {
@@ -98,15 +121,17 @@ export function MailIndex() {
             />
 
             <div className="mail-list-container">
-                <MailHeader
-                    filterBy={filterBy}
-                    onFilterChange={handleFilterChange}
-                    sortBy={sortBy}
-                    onSortChange={setSortBy}
-                    setReadFilter={setReadFilter}
-                    setFolder={setFolder}
-                    setLabelFilter={setLabelFilter}
-                />
+            <MailHeader
+                filterBy={filterBy}
+                onFilterChange={handleFilterChange}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+                setReadFilter={setReadFilter}
+                setFolder={setFolder}
+                setLabelFilter={setLabelFilter}
+                onSelectAll={handleSelectAll}
+                allSelected={allSelected}
+            />
 
                 <section className="mail-list">
                     <MailList
@@ -115,6 +140,8 @@ export function MailIndex() {
                         onToggleRead={toggleRead}
                         onRemove={handleRemove}
                         onRestore={handleRestore}
+                        allSelected={allSelected}
+                        setAllSelected={setAllSelected}
                     />
                 </section>
             </div>

@@ -1,6 +1,6 @@
 import { noteService } from "../../services/note.service.js"
 
-const { useState } = React
+const { useState, Fragment } = React
 
 
 export function NoteTodos({ note }) {
@@ -32,7 +32,7 @@ export function NoteTodos({ note }) {
     }
 
     return (
-        <div>
+        <Fragment>
             <h3>{note.info.title}</h3>
             <ul className="clean-list">
                 {todos.map((todo, idx) => (
@@ -49,6 +49,6 @@ export function NoteTodos({ note }) {
                     </li>
                 ))}
             </ul>
-        </div>
+        </Fragment>
     )
 }

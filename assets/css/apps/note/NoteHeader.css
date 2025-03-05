@@ -1,13 +1,13 @@
 .note-header {
     position: relative;
     z-index: 1;
-    gap: 10px;
+    gap: 25px;
     padding: 8px;
 
     border-block-end: 1px solid lightgray;
     
     img {
-        max-width: 2rem;
+        max-width: 3rem;
         padding: 7px;
         border-radius: 100vh;
 

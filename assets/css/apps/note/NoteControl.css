@@ -3,7 +3,7 @@
     align-items: center;
     gap: 0.5em;
 
-    max-height: 0;
+    /* max-height: 0; */
     padding-block-start: 5px;
 
     border-block-start: 1px solid black;
@@ -28,6 +28,6 @@
 }
 
 .note-card:hover .note-control {
-    max-height: 80px;
+    /* max-height: 80px; */
     opacity: 1;
 }

@@ -9,7 +9,7 @@
         flex-wrap: wrap;
         column-count: 4;
         column-width: 300px;
-        
+
 
         .note-card {
             position: relative;

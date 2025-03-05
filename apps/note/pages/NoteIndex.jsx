@@ -44,7 +44,7 @@ export function NoteIndex() {
     }
 
     function handleResize() {
-        if (window.innerWidth < 800) setMenuLocked(true)
+        if (window.innerWidth < 950) setMenuLocked(true)
         else setMenuLocked(false)
     }
 

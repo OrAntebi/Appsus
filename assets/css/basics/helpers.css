@@ -16,6 +16,10 @@
     align-items: center;
 }
 
+.align-end {
+    align-items: end;
+}
+
 .space-between {
     justify-content: space-between;
 }
@@ -159,6 +163,7 @@
 }
 
 /* Mail Preview Buttons */
+
 .mail-buttons {
     display: flex;
     align-items: center;
@@ -173,3 +178,34 @@
     cursor: pointer;
 }
 
+/* show more */
+
+.show-more {
+    color: #007BFF;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.show-more:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+/* text helpers */
+
+.bold-txt {
+    font-weight: 600;
+}

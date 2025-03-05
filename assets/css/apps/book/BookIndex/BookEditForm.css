@@ -1,0 +1,15 @@
+.book-edit-container {
+
+    h2 {
+        text-align: center;
+        margin-block-end: .3em;
+    }
+    .book-edit-form label:last-of-type {
+        margin-block-end: 1.5rem;
+    }
+
+    .book-actions-container {
+        gap: 20px;
+        padding-inline: 3em;
+    }
+}

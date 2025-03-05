@@ -1,0 +1,16 @@
+.books-filters-container {
+    margin-block-end: 20px;
+    padding-block-end: 5px;
+    
+    border-block-end: 2px dashed var(--primary-clr);
+
+    .filter-header {
+        margin-block-end: .4em;
+        text-align: center;
+    }
+
+    .books-filters {
+        column-gap: 25px;
+        flex-wrap: wrap;
+    }
+}

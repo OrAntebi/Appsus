@@ -1,0 +1,9 @@
+.main-content .label {
+    margin-bottom: 0.1rem;
+    padding-inline-start: .7em;
+
+    font-size: .8rem;
+    font-weight: 600;
+    color: #444;
+    text-transform: uppercase;
+}

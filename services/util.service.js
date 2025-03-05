@@ -1,13 +1,19 @@
 export const utilService = {
     makeId,
     makeLorem,
+    getRandomInt,
     getRandomIntInclusive,
     getRandomColor,
     padNum,
     getDayName,
     getMonthName,
     loadFromStorage,
-    saveToStorage
+    saveToStorage,
+    convertRatingToStars,
+    getRandomValue,
+    getRandomYear,
+    generateRandomText,
+    debounce,
 }
 
 function saveToStorage(key, val) {
@@ -40,6 +46,12 @@ function makeLorem(size = 100) {
     return txt
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
@@ -70,4 +82,42 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function convertRatingToStars(rating, maxRating = 5) {
+    const stars = []
+    for (let i = 0; i < rating; i++) {
+        stars.push(<img key={`filled-star-${i}`} className="rating-img" src="assets/img/book/star-icon.png" alt="star-icon" />)
+    }
+    for (let i = rating; i < maxRating; i++) {
+        stars.push(<img key={`empty-star-${i}`} className="rating-img" src="assets/img/book/star-line-yellow-icon.png" alt="star-line-yellow-icon" />)
+    }
+    return stars
+}
+
+function getRandomValue(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function getRandomYear(startYear, endYear) {
+    return Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+}
+
+function generateRandomText(length = 100) {
+    const words = ['the', 'cat', 'runs', 'to', 'eat', 'the', 'mouse', 'in', 'the', 'garden', 'they', 'are', 'playing', 'they', 'are', 'going', 'to', 'watch', 'a', 'movie'];
+    let sentence = '';
+    for (let i = 0; i < length; i++) {
+        sentence += words[Math.floor(Math.random() * words.length)] + ' ';
+    }
+    return sentence.trim() + '.';
+}
+
+function debounce(func, delay) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
 }

@@ -13,7 +13,6 @@
 }
 
 html, body {
-    overflow: hidden;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -24,6 +23,7 @@ html, body {
     margin: 0;
     list-style: none;
     width: 100%;
+    overflow: hidden;
 
 }
 

@@ -30,3 +30,15 @@
 .fa.video::before {
     content: '\f03d';
 }
+
+.fa.book-edit-btn::before {
+    content: '\2b';
+}
+
+.fa.add-book-btn::before {
+    content: '\2b';
+}
+
+.fa.remove-btn::before {
+    content: '\f2ed';
+}

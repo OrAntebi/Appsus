@@ -1,0 +1,39 @@
+.main-content .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+    
+    text-align: center;
+    border: none;
+    color: #fff;
+    background: linear-gradient(30deg, #00308F, #6CB4EE);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 1em;
+    width: 7em;
+    aspect-ratio: 3/1;
+    cursor: pointer;
+
+    &:hover {
+        animation: pulse 1.5s infinite;
+    }
+}
+
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 48, 143, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(218, 103, 68, 0%);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(218, 103, 68, 0%);
+    }
+}

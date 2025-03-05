@@ -3,12 +3,27 @@
 @import './basics/base.css';
 @import './basics/helpers.css';
 @import './basics/layout.css';
+@import './basics/main-content.css';
+
+/* PATTERNS */
+@import './basics/pattern/button.css';
+@import './basics/pattern/input.css';
+@import './basics/pattern/label.css';
 
 /* GENERAL CMPS */
 @import './cmps/home.css';
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 @import './cmps/Loader.css';
+
+/* MAIL */
+@import './apps/mail/MailIndex.css';
+@import './apps/mail/MailList.css';
+@import './apps/mail/MailPreview.css';
+@import './apps/mail/MailHeader.css';
+@import './apps/mail/Sidebar.css';
+@import './apps/mail/MailDetails.css';
+@import './apps/mail/MailCompose.css';
 
 /* NOTES */
 @import './apps/note/NoteHeader.css';
@@ -23,15 +38,20 @@
 @import './apps/note/NoteAddClosed.css';
 @import './apps/note/NoteAddOpen.css';
 
-/* MAIL */
-@import './apps/mail/MailIndex.css';
-@import './apps/mail/MailList.css';
-@import './apps/mail/MailPreview.css';
-@import './apps/mail/MailHeader.css';
-@import './apps/mail/Sidebar.css';
-@import './apps/mail/MailDetails.css';
-@import './apps/mail/MailCompose.css';
+/* BOOK */
+@import './apps/book/BookIndex/BookAdd.css';
+@import './apps/book/BookIndex/BookAddList.css';
+@import './apps/book/BookIndex/BookDetails.css';
+@import './apps/book/BookIndex/BookEdit.css';
+@import './apps/book/BookIndex/BookEditForm.css';
+@import './apps/book/BookIndex/BookFilter.css';
+@import './apps/book/BookIndex/BookList.css';
+@import './apps/book/BookIndex/BookPreview.css';
+@import './apps/book/Util-Cmps/Loader.css';
+@import './apps/book/Util-Cmps/overlay.css';
+@import './apps/book/Util-Cmps/swal-popup.css';
 
 /* SETUP */
 @import './setup/typography.css';
+@import './setup/vars.css';
 @import './setup/mq.css';

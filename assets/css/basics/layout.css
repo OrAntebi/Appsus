@@ -21,3 +21,9 @@
 
     padding: 10px 15px;
 }
+
+.book-layout {
+    display: grid;
+    grid-template-columns: minmax(40px, 1fr) minmax(auto, 1350px) minmax(40px, 1fr);
+    row-gap: 20px;
+}

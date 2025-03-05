@@ -1,5 +1,56 @@
-@media (min-width: 800px) {
+@media (min-width: 950px) {
     html {
         font-size: 16px
+    }
+}
+
+
+@media (max-width: 950px) {
+
+    .book-details-container .book-actions-container {
+        grid-template-areas:
+            "back-btn review-btn"
+            "prev-btn next-btn";
+
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .book-add-container .fa.book-edit-btn {
+        top: 0;
+        right: 0;
+        
+        display: inline-block;
+
+        width: -webkit-fill-available;
+        
+        padding: .3em;
+        
+        font-size: 1.5rem;
+        border-radius: 100vh;
+        cursor: pointer;
+    }
+    
+    .btn.book-edit-btn {
+        display: none;
+    }
+    
+    .book-edit-container {
+        .book-edit-btn {
+            position: absolute;
+            top: 14px;
+            right: 10px;
+        }
+    }
+
+    .google-search-list .fa.add-book-btn {
+        padding: 3px;
+    }
+}
+
+@media (max-width: 1080px) {
+
+    .book-details-container {
+        grid-template-areas: "img" "details" "reviews";
     }
 }

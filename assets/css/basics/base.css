@@ -1,10 +1,15 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 12px;
 }
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1,
@@ -12,17 +17,26 @@ h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+    margin: 0;
+    text-transform: capitalize;
+}
+
 p {
     margin: 0;
+    max-width: 600px;
 }
 
 a {
     text-decoration: none;
-    color: inherit;
+    color: unset;
 }
 
 img,
 video {
     max-width: 100%;
+}
+
+td {
+    text-align: center;
 }

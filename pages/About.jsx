@@ -16,13 +16,18 @@ export function About() {
                     <div className="features-grid">
                         <div className="feature-card">
                             <i className="fas fa-envelope"></i>
-                            <h3>Mail</h3>
+                            <h3>Mister Email</h3>
                             <p>A robust email management system with advanced filtering, starring, and organization capabilities.</p>
                         </div>
                         <div className="feature-card">
                             <i className="fas fa-sticky-note"></i>
-                            <h3>Notes</h3>
+                            <h3>Miss Keep</h3>
                             <p>Create, organize, and manage notes with multiple input types, including text, lists, images, and videos.</p>
+                        </div>
+                        <div className="feature-card">
+                            <i className="fas fa-book"></i>
+                            <h3>Miss Book</h3>
+                            <p>Explore, search, and manage a collection of books with essential details, reviews, and ratings. Keep track of your reading journey and discover new titles easily.</p>
                         </div>
                     </div>
                 </section>

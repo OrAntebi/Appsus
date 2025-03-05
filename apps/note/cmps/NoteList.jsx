@@ -2,7 +2,7 @@ import { NotePreview } from './NotePreview.jsx'
 import { NoteControl } from './NoteControl.jsx'
 import { EmptyTabMsg } from '../cmps/EmptyTabMsg.jsx'
 
-export function NoteList({ notes, title, onSetBgColor, onTrash, onArchive, onPin, onRestore, onDeleteForever }) {
+export function NoteList({ notes, title, editNoteId, toggleEditMode, onSaveNote, onSetBgColor, onTrash, onArchive, onPin, onRestore, onDeleteForever }) {
 
     if (notes.length === 0) return <EmptyTabMsg tabName={title || 'Notes'} />;
 
@@ -13,9 +13,14 @@ export function NoteList({ notes, title, onSetBgColor, onTrash, onArchive, onPin
             <section className="notes-container">
                 {notes.map(note => (
                     <article className="note-card flex column" key={note.id} style={note.style}>
-                        <NotePreview note={note} />
+                        <NotePreview
+                            note={note}
+                            editMode={note.id === editNoteId}
+                            onSaveNote={(updatedFields) => onSaveNote(note.id, updatedFields)}
+                        />
                         <NoteControl
                             note={note}
+                            toggleEditMode={toggleEditMode}
                             onSetBgColor={(color) => onSetBgColor(note.id, color)}
                             onTrash={() => onTrash(note.id)}
                             onArchive={() => onArchive(note.id)}

@@ -12,6 +12,7 @@ const { Routes, Route } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
+    const [editNoteId, setEditNoteId] = useState(null)
     const [loader, setLoader] = useState(false)
     const [filter, setFilter] = useState('active')
     const [menuLock, setMenuLocked] = useState(false)
@@ -59,6 +60,32 @@ export function NoteIndex() {
 
 
     /*------- Note control actions -------*/
+
+    function toggleEditMode(noteId) {
+        if (editNoteId === noteId) setEditNoteId(null)
+        else setEditNoteId(noteId)
+    }
+
+
+    function onSaveNote(noteId, updatedFields) {
+        noteService.getById(noteId)
+            .then(note => {
+                const updateNote = { ...note, info: { ...updatedFields } }
+                return noteService.save(updateNote)
+            })
+            .then(savedNote => {
+                setNotes(notes.map(note => note.id === noteId ? savedNote : note))
+                showSuccessMsg('Note updated successfully!')
+                setEditNoteId(null)
+            })
+            .catch(err => {
+                showErrorMsg(`Failed to update note: ${err.message}`)
+                setEditNoteId(null)
+            })
+    }
+
+
+
 
     function onSetBgColor(noteId, color) {
         noteService.getById(noteId)
@@ -156,6 +183,9 @@ export function NoteIndex() {
                                     {pinnedNotes.length > 0 && <NoteList
                                         notes={pinnedNotes}
                                         title="Pinned"
+                                        toggleEditMode={toggleEditMode}
+                                        editNoteId={editNoteId}
+                                        onSaveNote={onSaveNote}
                                         onSetBgColor={onSetBgColor}
                                         onTrash={onTrash}
                                         onArchive={onArchive}
@@ -164,6 +194,9 @@ export function NoteIndex() {
                                     <NoteList
                                         notes={unpinnedNotes}
                                         title={pinnedNotes.length > 0 ? 'Others' : ''}
+                                        toggleEditMode={toggleEditMode}
+                                        editNoteId={editNoteId}
+                                        onSaveNote={onSaveNote}
                                         onSetBgColor={onSetBgColor}
                                         onTrash={onTrash}
                                         onArchive={onArchive}
@@ -178,6 +211,9 @@ export function NoteIndex() {
                                 <NoteList
                                     notes={notes}
                                     title="Archive"
+                                    toggleEditMode={toggleEditMode}
+                                    editNoteId={editNoteId}
+                                    onSaveNote={onSaveNote}
                                     onSetBgColor={onSetBgColor}
                                     onTrash={onTrash}
                                     onRestore={onRestore}

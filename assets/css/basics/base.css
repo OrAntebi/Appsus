@@ -19,12 +19,12 @@ h4,
 h5,
 h6 {
     margin: 0;
-    text-transform: capitalize;
 }
 
 p {
     margin: 0;
-    max-width: 600px;
+    max-width: 100%;
+    text-wrap: pretty;
 }
 
 a {

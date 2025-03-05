@@ -1,7 +1,7 @@
 const { Fragment } = React
 
-export function DynamicControls({ note, togglePalette, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
-     
+export function DynamicControls({ note, toggleEditMode, togglePalette, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
+
     switch (note.state) {
 
         case 'active':
@@ -12,6 +12,7 @@ export function DynamicControls({ note, togglePalette, onArchive, onTrash, onPin
                         src="assets/img/note/edit.svg"
                         title="Edit"
                         alt="Edit "
+                        onClick={() => toggleEditMode(note.id)}
                     />
                     <img
                         key="palette"
@@ -47,6 +48,13 @@ export function DynamicControls({ note, togglePalette, onArchive, onTrash, onPin
         case 'archived':
             return (
                 <Fragment>
+                    <img
+                        key="edit"
+                        src="assets/img/note/edit.svg"
+                        title="Edit"
+                        alt="Edit "
+                        onClick={() => toggleEditMode(note.id)}
+                    />
                     <img
                         key="palette"
                         src="assets/img/note/palette.svg"

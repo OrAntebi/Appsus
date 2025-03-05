@@ -2,7 +2,7 @@ const { useState, Fragment } = React
 import { ColorPicker } from "./ColorPicker.jsx"
 import { DynamicControls } from "./DynamicCmps/DynamicControls.jsx"
 
-export function NoteControl({ note, onSetBgColor, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
+export function NoteControl({ note, toggleEditMode, onSetBgColor, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
     const [paletteIsOpen, setPaletteIsOpen] = useState(false)
 
     const togglePalette = () => setPaletteIsOpen(prev => !prev)
@@ -12,6 +12,7 @@ export function NoteControl({ note, onSetBgColor, onArchive, onTrash, onPin, onR
             <section className="note-control flex">
                 <DynamicControls
                     note={note}
+                    toggleEditMode={toggleEditMode}
                     togglePalette={togglePalette}
                     onArchive={() => onArchive(note.id)}
                     onTrash={() => onTrash(note.id)}

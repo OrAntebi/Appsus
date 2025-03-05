@@ -4,8 +4,8 @@ import { NoteVideo } from '../NoteType/NoteVideo.jsx'
 import { NoteTodos } from '../NoteType/NoteTodos.jsx'
 
 
-export function SpecificNote({ note }) {
-    
+export function SpecificNote({ note, editMode, onSaveNote }) {
+
     const components = {
         NoteTxt,
         NoteImg,
@@ -17,5 +17,5 @@ export function SpecificNote({ note }) {
 
     if (!Component) return <div>Unknown note type</div>
 
-    return <Component note={note} />
+    return <Component note={note} editMode={editMode} onSaveNote={onSaveNote} />
 }

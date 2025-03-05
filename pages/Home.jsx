@@ -88,7 +88,7 @@ export function Home() {
                     <div className="cta-buttons">
                         <Link to="/mail" className="btn">Start with Mail</Link>
                         <Link to="/note" className="btn">Begin Note-Taking</Link>
-                        <Link to="/book" className="btn">Begin finding your book</Link>
+                        <Link to="/books" className="btn">Begin finding your book</Link>
                     </div>
                 </section>
             </div>

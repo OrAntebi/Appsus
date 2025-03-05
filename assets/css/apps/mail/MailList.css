@@ -1,12 +1,9 @@
 .mail-list-container {
-    height: 100vh;
-    max-height: 75vh;
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
-    padding-top: 0;
     margin-left: 20px;
-    margin-top: 0;
     width: calc(100% - 20px);
     box-sizing: border-box;
 

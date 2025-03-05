@@ -8,6 +8,9 @@ export function MailDetails() {
     const { mailId } = useParams()
     const navigate = useNavigate()
     const [mail, setMail] = useState(null)
+    const [isReplying, setIsReplying] = useState(false)
+    const [replyText, setReplyText] = useState('')
+    const [thread, setThread] = useState([])
 
     useEffect(() => {
         setMail(null) 
@@ -38,8 +41,30 @@ export function MailDetails() {
     }    
 
     function replyToMail() {
-        navigate(`/mail/compose?to=${mail.from}&subject=Re: ${mail.subject}`)
+        setIsReplying(true)
     }
+
+    function cancelReply() {
+        setIsReplying(false)
+        setReplyText('')
+    }
+
+    function sendReply() {
+        const replyMail = {
+            to: mail.from,
+            subject: `Re: ${mail.subject}`,
+            body: replyText,
+            sentAt: Date.now(),
+            removedAt: null,
+            status: 'sent'
+        }
+        
+        mailService.add(replyMail).then(() => {
+            setIsReplying(false)
+            setReplyText('')
+        })
+    }
+
 
     function toggleLabel(label) {
         if (!mail.labels) mail.labels = []
@@ -93,6 +118,25 @@ export function MailDetails() {
             <div className="mail-body">
                 {mail.body ? <p>{mail.body}</p> : <p className="empty-msg">No content available</p>}
             </div>
+
+            {isReplying && (
+                <div className="reply-section">
+                    <div className="reply-header">
+                        <span>Replying to {mail.from}</span>
+                    </div>
+                    <div className="reply-content">
+                        <textarea 
+                            value={replyText} 
+                            onChange={(e) => setReplyText(e.target.value)}
+                            placeholder="Write your reply..."
+                        ></textarea>
+                    </div>
+                    <div className="reply-footer">
+                        <button className="send-btn" onClick={sendReply}>Send</button>
+                        <button className="cancel-btn" onClick={cancelReply}>Discard</button>
+                    </div>
+                </div>
+            )}
         </section>
     ) 
 }

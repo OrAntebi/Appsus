@@ -81,6 +81,7 @@ export function MailCompose({ onClose }) {
                         <label>To</label>
                         <input 
                             type="email" 
+                            id="email-to" 
                             name="to" 
                             value={mail.to} 
                             onChange={handleChange} 
@@ -92,6 +93,7 @@ export function MailCompose({ onClose }) {
                         <label>Subject</label>
                         <input 
                             type="text" 
+                            id="email-subject" 
                             name="subject" 
                             value={mail.subject} 
                             onChange={handleChange} 
@@ -99,11 +101,12 @@ export function MailCompose({ onClose }) {
                     </div>
                     
                     <div className="compose-body">
-                        <textarea 
-                            name="body" 
-                            value={mail.body} 
-                            onChange={handleChange} 
-                        ></textarea>
+                    <textarea 
+                        id="email-body" 
+                        name="body" 
+                        value={mail.body} 
+                        onChange={handleChange} 
+                    ></textarea>
                     </div>
                     
                     <footer className="compose-footer">

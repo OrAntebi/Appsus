@@ -75,4 +75,122 @@
     font-style: italic
 }
 
+.reply-section {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.reply-header {
+    font-size: 14px;
+    color: #5f6368;
+    margin-bottom: 10px;
+}
+
+.reply-content {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.reply-content textarea {
+    width: 100%;
+    min-height: 150px;
+    border: none;
+    resize: vertical;
+    background-color: transparent;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.reply-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.reply-footer .send-btn {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reply-footer .cancel-btn {
+    background-color: #f1f3f4;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    color: #5f6368;
+    cursor: pointer;
+}
+
+/* Add to MailDetails.css */
+.mail-thread {
+    margin-top: 20px;
+}
+
+.mail-message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.mail-message.current {
+    background-color: #f1f8ff;
+    border-left: 3px solid #1a73e8;
+}
+
+.mail-message-header {
+    margin-bottom: 10px;
+}
+
+.mail-sender {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.mail-date {
+    color: #666;
+}
+
+.mail-recipients {
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.mail-message-body {
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.mail-message-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.mail-message-actions button {
+    background: none;
+    border: none;
+    color: #1a73e8;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.mail-message-actions button:hover {
+    background-color: rgba(26, 115, 232, 0.1);
+}
 

@@ -11,7 +11,7 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState({ txt: '', status: 'inbox', isRead: null })
     const [sortBy, setSortBy] = useState('date-newest')
-    const [isSideBarOpen, setIsSidebarOpen] = useState(false)
+    const [isSideBarOpen, setIsSidebarOpen] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
     const [isComposing, setIsComposing] = useState(false)
     const navigate = useNavigate()
@@ -136,6 +136,7 @@ export function MailIndex() {
                 <section className="mail-list">
                     <MailList
                         mails={mails}
+                        setMails={setMails}
                         onToggleStar={toggleStar}
                         onToggleRead={toggleRead}
                         onRemove={handleRemove}

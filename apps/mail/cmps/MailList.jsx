@@ -1,7 +1,8 @@
 import { MailPreview } from './MailPreview.jsx'
+import { archiveMail } from '../services/mail.service.js'
 const { useState, useEffect } = React
 
-export function MailList({ mails, onToggleStar, onToggleRead, onRemove, onRestore, allSelected, setAllSelected }) {
+export function MailList({ mails, setMails, onToggleStar, onToggleRead, onRemove, onRestore, allSelected, setAllSelected}) {
     const [selectedMails, setSelectedMails] = useState([])
 
     useEffect(() => {
@@ -25,6 +26,16 @@ export function MailList({ mails, onToggleStar, onToggleRead, onRemove, onRestor
         setAllSelected(isChecked)
     }
 
+    function handleArchive(mailId) {
+        archiveMail(mailId)
+        
+        if (typeof setMails === 'function') {
+            setMails(prevMails => prevMails.filter(mail => mail.id !== mailId)) 
+        } else {
+            console.error("setMails is not available in MailList.jsx")
+        }
+    }    
+    
     useEffect(() => {
         if (mails.length > 0 && selectedMails.length === mails.length) {
             setAllSelected(true)
@@ -42,12 +53,16 @@ export function MailList({ mails, onToggleStar, onToggleRead, onRemove, onRestor
                         <MailPreview
                             key={mail.id}
                             mail={mail}
+                            setMails={setMails}
                             onToggleStar={onToggleStar}
                             onToggleRead={onToggleRead}
                             onRemove={onRemove}
                             onRestore={onRestore}
-                            onSelectMail={handleSelectMail}
+                            onSelectMail={(mailId, checked) => {
+                            setSelectedMails(prev => checked ? [...prev, mailId] : prev.filter(id => id !== mailId))
+                        }}
                             selectedMails={selectedMails}
+                            handleArchive={handleArchive}
                         />
                     </div>
                 ))}

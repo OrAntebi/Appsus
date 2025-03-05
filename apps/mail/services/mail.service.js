@@ -13,6 +13,7 @@ let mails = [
         sentAt: 1678533930594,
         removedAt: null,
         from: 'boss@work.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Work']
@@ -26,6 +27,7 @@ let mails = [
         sentAt: 1678538930594,
         removedAt: null,
         from: 'prince@nigeria.gov',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Spam']
@@ -39,6 +41,7 @@ let mails = [
         sentAt: 1678539930594,
         removedAt: null,
         from: 'orders@purrfectpizza.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: true,
         labels: ['Funny']
@@ -52,6 +55,7 @@ let mails = [
         sentAt: 1678534930594,
         removedAt: null,
         from: 'friend@example.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: true,
         labels: ['Personal']
@@ -65,6 +69,7 @@ let mails = [
         sentAt: 1678535930594,
         removedAt: null,
         from: 'newsletter@technews.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['News']
@@ -78,6 +83,7 @@ let mails = [
         sentAt: 1678536930594,
         removedAt: null,
         from: 'shop@ecommerce.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Shopping']
@@ -91,6 +97,7 @@ let mails = [
         sentAt: 1678537930594,
         removedAt: null,
         from: 'billing@service.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Finance']
@@ -104,6 +111,7 @@ let mails = [
         sentAt: 1678540930594,
         removedAt: null,
         from: 'fridge@kitchen.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
@@ -117,6 +125,7 @@ let mails = [
         sentAt: 1678541930594,
         removedAt: null,
         from: 'lostsocks@laundryverse.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: true,
         labels: ['Funny']
@@ -130,6 +139,7 @@ let mails = [
         sentAt: 1678542930594,
         removedAt: null,
         from: 'skynet@future.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
@@ -143,6 +153,7 @@ let mails = [
         sentAt: 1678543930594,
         removedAt: null,
         from: 'nowinner@notascam.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
@@ -156,6 +167,7 @@ let mails = [
         sentAt: 1678554930594,
         removedAt: null,
         from: 'security@securemail.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Personal']
@@ -169,6 +181,7 @@ let mails = [
         sentAt: 1678555930594,
         removedAt: null,
         from: 'scam@totallylegit.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Spam']
@@ -182,6 +195,7 @@ let mails = [
         sentAt: 1678556930594,
         removedAt: null,
         from: 'hr@company.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Work']
@@ -195,6 +209,7 @@ let mails = [
         sentAt: 1678557930594,
         removedAt: null,
         from: 'billing@fakenetprovider.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Spam']
@@ -208,6 +223,7 @@ let mails = [
         sentAt: 1678558930594,
         removedAt: null,
         from: 'warranty@scamcalls.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Spam']
@@ -221,6 +237,7 @@ let mails = [
         sentAt: 1678559930594,
         removedAt: null,
         from: 'it@company.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Work']
@@ -234,6 +251,7 @@ let mails = [
         sentAt: 1678560930594,
         removedAt: null,
         from: 'coffeepot@breakroom.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
@@ -247,6 +265,7 @@ let mails = [
         sentAt: 1678561930594,
         removedAt: null,
         from: 'topsecret@missioncontrol.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Funny']
@@ -260,6 +279,7 @@ let mails = [
         sentAt: 1678562930594,
         removedAt: null,
         from: 'landlord@rentcollectors.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Finance']
@@ -273,6 +293,7 @@ let mails = [
         sentAt: 1678563930594,
         removedAt: null,
         from: 'manager@company.com',
+        isArchived: false,
         to: loggedinUser.email,
         isStared: false,
         labels: ['Work']
@@ -293,30 +314,52 @@ export const mailService = {
 
 function query(filterBy = {}) {
     let storedMails = JSON.parse(localStorage.getItem('mails')) || []
-    let mergedMails = [...mails.filter(mail => !storedMails.some(m => m.id === mail.id)), ...storedMails]
-    let filteredMails = mergedMails
+    
+    let combinedMails = [...mails, ...storedMails]
+    let uniqueMails = Array.from(
+        new Set(combinedMails.map(mail => mail.id))
+    ).map(id => combinedMails.find(mail => mail.id === id))
+
+    let filteredMails = [...uniqueMails]
 
     if (filterBy.status) {
         if (filterBy.status === 'inbox') {
-            filteredMails = filteredMails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt && !mail.status)
+            filteredMails = filteredMails.filter(mail => 
+                mail.to === loggedinUser.email && 
+                !mail.removedAt && 
+                !mail.status
+            )
         } else if (filterBy.status === 'sent') {
-            filteredMails = filteredMails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && mail.status === 'sent')
+            filteredMails = filteredMails.filter(mail => 
+                mail.from === loggedinUser.email && 
+                mail.sentAt && 
+                mail.status === 'sent'
+            )
         } else if (filterBy.status === 'trash') {
             filteredMails = filteredMails.filter(mail => mail.removedAt)
         } else if (filterBy.status === 'draft') {
-            filteredMails = filteredMails.filter(mail => mail.status === 'draft' && !mail.sentAt && !mail.removedAt)
+            filteredMails = filteredMails.filter(mail => 
+                mail.status === 'draft' && 
+                !mail.sentAt && 
+                !mail.removedAt
+            )
         }
     }
 
     if (filterBy.txt) {
+        const searchTerm = filterBy.txt.toLowerCase()
         filteredMails = filteredMails.filter(mail => 
-            mail.subject.toLowerCase().includes(filterBy.txt.toLowerCase()) || 
-            mail.body.toLowerCase().includes(filterBy.txt.toLowerCase())
+            mail.subject.toLowerCase().includes(searchTerm) || 
+            mail.body.toLowerCase().includes(searchTerm)
         )
     }
 
-    if (filterBy.hasOwnProperty('isRead') && filterBy.isRead !== null && filterBy.isRead !== 'all') {
-        filteredMails = filteredMails.filter(mail => mail.isRead === filterBy.isRead)
+    if (filterBy.hasOwnProperty('isRead') && 
+        filterBy.isRead !== null && 
+        filterBy.isRead !== 'all') {
+        filteredMails = filteredMails.filter(mail => 
+            mail.isRead === filterBy.isRead
+        )
     }
 
     if (filterBy.hasOwnProperty('isStared') && filterBy.isStared === true) {
@@ -324,9 +367,10 @@ function query(filterBy = {}) {
     }
 
     if (filterBy.labels && filterBy.labels.length) {
-        filteredMails = filteredMails.filter(mail => {
-            return mail.labels && filterBy.labels.some(label => mail.labels.includes(label))
-        })
+        filteredMails = filteredMails.filter(mail => 
+            mail.labels && 
+            filterBy.labels.some(label => mail.labels.includes(label))
+        )
     }
 
     return Promise.resolve(filteredMails)
@@ -492,6 +536,38 @@ function getMailThread(mailId) {
     thread.sort((a, b) => a.sentAt - b.sentAt)
     
     return Promise.resolve(thread)
+}
+
+export function archiveMail(mailId) {
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+
+    const updatedMails = storedMails.map(mail => 
+        mail.id === mailId ? { ...mail, isArchived: true } : mail
+    )
+
+    localStorage.setItem('mails', JSON.stringify(updatedMails))
+}
+
+
+export function getArchivedMails() {
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+    return storedMails.filter(mail => mail.isArchived) 
+}
+
+
+export function unarchiveMail(mailId) {
+    const mail = mails.find(mail => mail.id === mailId)
+    if (mail) mail.isArchived = false
+    saveMails()
+}
+
+export function getInboxMails() {
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+    return storedMails.filter(mail => !mail.isArchived && !mail.removedAt)
+}
+
+function saveMails() {
+    localStorage.setItem('mails', JSON.stringify(mails))
 }
 
 

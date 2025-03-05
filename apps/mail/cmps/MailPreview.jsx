@@ -1,6 +1,6 @@
 const { useNavigate } = ReactRouterDOM
 
-export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSelectMail, selectedMails }) {
+export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSelectMail, selectedMails, handleArchive }) {
     const navigate = useNavigate()
 
     function handleMailClick(ev) {
@@ -51,19 +51,29 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSele
             <span className="mail-timestamp">{formatTimestamp()}</span>
 
             <div className="mail-actions">
-                <button className="action-btn archive-btn" onClick={(ev) => { ev.stopPropagation(); }}>
-                    📥
-                    <span className="tooltip">Archive</span>
-                </button>
+            <button className="action-btn archive-btn" onClick={(ev) => {
+                ev.stopPropagation()
+                if (typeof handleArchive === 'function') {
+                    handleArchive(mail.id)
+                } else {
+                    console.error("handleArchive is not a function")
+                }
+            }}>
+                <i className="fas fa-archive"></i>
+                <span className="tooltip">Archive</span>
+            </button>
+
                 <button className="action-btn mark-read-btn" onClick={(ev) => { ev.stopPropagation(); onToggleRead(mail) }}>
-                    {mail.isRead ? '📩' : '✉️'}
+                    <i className={mail.isRead ? "fas fa-envelope-open" : "fas fa-envelope"}></i> 
                     <span className="tooltip">{mail.isRead ? 'Mark as unread' : 'Mark as read'}</span>
                 </button>
+
                 <button className="action-btn trash-btn" onClick={(ev) => { ev.stopPropagation(); onRemove(mail.id) }}>
-                    🗑️
+                    <i className="fas fa-trash"></i> 
                     <span className="tooltip">Trash</span>
                 </button>
             </div>
         </div>
     )
 }
+

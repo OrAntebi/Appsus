@@ -11,7 +11,7 @@
 @import './basics/pattern/label.css';
 
 /* GENERAL CMPS */
-@import './cmps/home.css';
+@import './cmps/Home.css';
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 @import './cmps/Loader.css';

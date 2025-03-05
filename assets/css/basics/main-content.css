@@ -1,4 +1,4 @@
-.main-content:not(:has(.loader)) {
+.main-content:not(:has(.book-loader)) {
     position: relative;
 
     display: flex;

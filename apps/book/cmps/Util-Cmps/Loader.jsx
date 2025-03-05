@@ -9,7 +9,7 @@ export function Loader() {
                 <div className="book__pg book__pg--4"></div>
                 <div className="book__pg book__pg--5"></div>
             </div>
-            <div className="loader"></div>
+            <div className="book-loader"></div>
         </section>
     )
 }

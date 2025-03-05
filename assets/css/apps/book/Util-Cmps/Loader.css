@@ -369,7 +369,7 @@
     }
 }
 
-.loader {
+.book-loader {
     position: absolute;
     top: 57%;
     left: 50%;
@@ -383,7 +383,7 @@
 }
 
 
-.loader:before {
+.book-loader:before {
     content: "Loading..."
 }
 

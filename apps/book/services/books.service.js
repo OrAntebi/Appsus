@@ -20,7 +20,7 @@ export const bookService = {
 const BOOK_KEY = 'booksDB'
 
 function query(filterBy) {
-    return storageService.query(BOOK_KEY)
+    return storageService.query(BOOK_KEY, 1000)
         .then(books => {
             
             if (!books || !books.length) {

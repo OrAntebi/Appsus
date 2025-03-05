@@ -1,5 +1,6 @@
-.loader {
+.note-loader {
     width: 100%;
+    height: 50% !important;
 }
 
 .glitch {

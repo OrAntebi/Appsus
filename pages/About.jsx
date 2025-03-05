@@ -32,7 +32,7 @@ export function About() {
                     <div className="developers-grid">
                     <div className="developer-card">
                             <div className="developer-avatar">
-                                <img src="/assets/img/or.jpg" alt="Or Antebi" />
+                                <img src="assets/img/or.jpg" alt="Or Antebi" />
                             </div>
                             <h3>Or Antebi</h3>
                             <p>Full Stack Web Developer</p>
@@ -40,7 +40,7 @@ export function About() {
                                 <a href="https://github.com/or87600" target="_blank" rel="noopener noreferrer">
                                     <i className="fab fa-github"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/in/or-antebi/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.linkedin.com/in/orantebi/" target="_blank" rel="noopener noreferrer">
                                     <i className="fab fa-linkedin"></i>
                                 </a>
                             </div>
@@ -51,7 +51,7 @@ export function About() {
                         </div>
                         <div className="developer-card">
                             <div className="developer-avatar">
-                                <img src="/assets/img/yakov.jpg" alt="Yakov Cohen" />
+                                <img src="assets/img/yakov.jpg" alt="Yakov Cohen" />
                             </div>
                             <h3>Yakov Cohen</h3>
                             <p>Full Stack Web Developer</p>

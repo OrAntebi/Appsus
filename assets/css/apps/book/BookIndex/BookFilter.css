@@ -5,7 +5,7 @@
     border-block-end: 2px dashed var(--primary-clr);
 
     .filter-header {
-        margin-block-end: .4em;
+        margin-block-end: 1em;
         text-align: center;
     }
 

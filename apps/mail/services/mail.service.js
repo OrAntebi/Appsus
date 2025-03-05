@@ -467,4 +467,31 @@ function toggleLabel(mailId, label) {
     return Promise.resolve(mail)
 }
 
+function getMailThread(mailId) {
+
+    const originalMail = mails.find(mail => mail.id === mailId)
+    if (!originalMail) return Promise.resolve([])
+    
+    const relatedMails = mails.filter(mail => {
+
+        if (mail.subject === `Re: ${originalMail.subject}` &&
+            (mail.to === originalMail.from || mail.from === originalMail.to)) {
+            return true
+        }
+        
+        if (originalMail.subject === `Re: ${mail.subject}` &&
+            (originalMail.to === mail.from || originalMail.from === mail.to)) {
+            return true
+        }
+        
+        return false
+    })
+    
+    const thread = [originalMail, ...relatedMails]
+    
+    thread.sort((a, b) => a.sentAt - b.sentAt)
+    
+    return Promise.resolve(thread)
+}
+
 

@@ -4,9 +4,14 @@
     top: 125px;
     padding-top: 50px;
     height: calc(100vh - 60px);
-    z-index: 10;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); 
     background-color: #f6f8fc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: width 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .toggle-btn{
@@ -113,4 +118,14 @@
 
 .sidebar.open ~ .mail-list-container {
     padding-left: 250px; 
+}
+
+.mail-list-container {
+    transition: padding-left 0.3s ease, margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar, .mail-list-container {
+    will-change: transform, width, padding, margin;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
 }

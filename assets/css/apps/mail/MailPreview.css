@@ -52,6 +52,7 @@
 .mail-content {
     display: flex;
     flex: 1;
+    min-width: 0;
     font-size: 14px;
     overflow: hidden;
     white-space: nowrap;
@@ -60,11 +61,12 @@
 
 .mail-subject {
     font-weight: bold;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 250px;
+    max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis
+    text-overflow: ellipsis;
+    padding-right: 10px;
 }
 
 .mail-preview.read .mail-subject {
@@ -79,6 +81,7 @@
 .mail-body {
     flex: 1;
     font-weight: normal !important;
+    min-width: 0;
     color: #5f6368;
     white-space: nowrap;
     overflow: hidden;
@@ -105,14 +108,15 @@
 .mail-actions {
     position: absolute;
     right: 15px;
-    display: none;
+    display: flex;
     gap: 8px;
-    position: relative;
-    z-index: 10;
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 0.2s ease;
 }
 
 .mail-preview:hover .mail-actions {
-    display: flex;
+    opacity: 1;
 }
 
 .mail-preview:hover .mail-timestamp {

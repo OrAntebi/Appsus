@@ -16,6 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
+    margin: 0;
     height: 100%;
     overflow: hidden;
     transition: padding-left 0.3s ease-in-out;

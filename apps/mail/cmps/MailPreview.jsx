@@ -5,12 +5,15 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSele
 
     function handleMailClick(ev) {
         ev.stopPropagation()
+        const mailId = mail.id 
+        console.log("Navigating to mail:", mailId) 
+        
         if (mail.removedAt) {
-            navigate(`/mail/${mail.id}`)
+            navigate(`/mail/${mailId}`)
         } else if (mail.status === 'draft') {
-            navigate(`/mail/compose?draftId=${mail.id}`)
+            navigate(`/mail/compose?draftId=${mailId}`)
         } else {
-            navigate(`/mail/${mail.id}`)
+            navigate(`/mail/${mailId}`)
         }
     }
 

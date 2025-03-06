@@ -1,6 +1,7 @@
 const { useNavigate } = ReactRouterDOM
+import {  saveMailAsNote } from '../services/mail.service.js'
 
-export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSelectMail, selectedMails, handleArchive }) {
+export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSelectMail, selectedMails, handleArchive, saveMailAsNote }) {
     const navigate = useNavigate()
 
     function handleMailClick(ev) {
@@ -66,6 +67,11 @@ export function MailPreview({ mail, onToggleStar, onToggleRead, onRemove, onSele
                 <button className="action-btn mark-read-btn" onClick={(ev) => { ev.stopPropagation(); onToggleRead(mail) }}>
                     <i className={mail.isRead ? "fas fa-envelope-open" : "fas fa-envelope"}></i> 
                     <span className="tooltip">{mail.isRead ? 'Mark as unread' : 'Mark as read'}</span>
+                </button>
+
+                <button className="action-btn save-note-btn" onClick={(ev) => { ev.stopPropagation(); saveMailAsNote(mail)}}>
+                    <i className="fas fa-sticky-note"></i>
+                    <span className="tooltip">Save as Note</span>
                 </button>
 
                 <button className="action-btn trash-btn" onClick={(ev) => { ev.stopPropagation(); onRemove(mail.id) }}>

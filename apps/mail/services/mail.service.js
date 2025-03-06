@@ -310,7 +310,8 @@ export const mailService = {
     getLoggedinUser,
     saveDraft,
     toggleLabel,
-    getMailThread
+    getMailThread,
+    saveMailAsNote
 }
 
 function query(filterBy = {}) {
@@ -392,9 +393,14 @@ function get(mailId) {
 function add(newMail) {
     newMail.id = makeId()
     newMail.createdAt = Date.now()
-    newMail.sentAt = Date.now() 
-    newMail.status = 'sent' 
-    newMail.from = loggedinUser.email 
+
+    if (!newMail.status) {
+        newMail.status = 'inbox'
+    }
+
+    if (!newMail.from) {
+        newMail.from = 'notes@appsus.com' 
+    }
 
     mails.push(newMail)
 
@@ -404,7 +410,6 @@ function add(newMail) {
 
     return Promise.resolve(newMail)
 }
-
 
 function update(updatedMail) {
     mails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
@@ -580,5 +585,19 @@ export function getInboxMails() {
 function saveMails() {
     localStorage.setItem('mails', JSON.stringify(mails))
 }
+
+import { onAddNote } from '../services/note.service.js'
+
+export function saveMailAsNote(mail) {
+    const newNote = {
+        title: mail.subject, 
+        txt: mail.body,  
+        type: 'NoteTxt',        
+        createdAt: Date.now()
+    }
+
+    onAddNote(newNote) 
+}
+
 
 

@@ -7,7 +7,7 @@ const loggedinUser = {
     fullname: 'User Lastname'
 }
 
-import { mailService } from '../services/mail.service.js'
+import { mailService, saveMailAsNote } from '../services/mail.service.js'
 
 export function MailDetails() {
     const { mailId } = useParams()
@@ -112,6 +112,9 @@ export function MailDetails() {
                 </button>
                 <button onClick={forwardMail}>
                     <i className="fas fa-share"></i> Forward
+                </button>
+                <button onClick={saveMailAsNote}>
+                    <i className="fas fa-sticky-note"></i> Save Mail as Note
                 </button>
                 <button onClick={deleteMail}>
                     <i className="fas fa-trash"></i> Trash

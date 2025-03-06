@@ -41,7 +41,39 @@ export function MailCompose({ onClose }) {
         }, 5000) 
 
         return () => clearTimeout(saveTimeout)
-    }, [mail])            
+    }, [mail])    
+
+    useEffect(() => {
+        const noteId = searchParams.get('noteId')
+        if (noteId) {
+            noteService.get(noteId).then(note => {
+                const newMail = newMailFromNotes(note)
+                setMail(newMail) 
+            })
+        }
+    }, [searchParams])
+    
+    function newMailFromNotes(note) {
+        let body = '' 
+    
+        if (note.type === 'NoteTxt') {
+            body = note.info.txt
+        } else if (note.type === 'NoteImg') {
+            body = `Check out this image: ${note.info.url}`
+        } else if (note.type === 'NoteTodos') {
+            body = note.info.todos.map(todo => `- ${todo.txt}`).join('\n') 
+        }
+    
+        return {
+            subject: note.info.title || 'No Subject',
+            body: body || 'No content available',
+            to: '', 
+            from: 'notes@appsus.com', 
+            status: 'draft', 
+            createdAt: Date.now(),
+            sentAt: null
+        }
+    }    
 
     function handleChange(ev) {
         const { name, value } = ev.target

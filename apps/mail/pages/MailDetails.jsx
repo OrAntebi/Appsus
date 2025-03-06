@@ -2,6 +2,11 @@ const { useParams, useNavigate } = ReactRouterDOM
 const useState = React.useState
 const useEffect = React.useEffect
 
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'User Lastname'
+}
+
 import { mailService } from '../services/mail.service.js'
 
 export function MailDetails() {
@@ -13,11 +18,11 @@ export function MailDetails() {
     const [thread, setThread] = useState([])
 
     useEffect(() => {
-        setMail(null) 
+        setMail(null)
     
         mailService.get(mailId).then(mailData => {
             if (!mailData) {
-                navigate('/mail') 
+                navigate('/mail')
                 return
             }
             
@@ -27,8 +32,12 @@ export function MailDetails() {
             } else {
                 setMail(mailData)
             }
+    
+            mailService.getMailThread(mailId).then(setThread)
+    
         }).catch(() => navigate('/mail'))
     }, [mailId])
+    
     
     function toggleReadStatus() {
         const updatedMail = { ...mail, isRead: !mail.isRead }
@@ -56,15 +65,17 @@ export function MailDetails() {
             body: replyText,
             sentAt: Date.now(),
             removedAt: null,
-            status: 'sent'
+            status: 'sent',
+            from: loggedinUser.email
         }
         
         mailService.add(replyMail).then(() => {
             setIsReplying(false)
             setReplyText('')
+    
+            mailService.getMailThread(mail.id).then(setThread)
         })
-    }
-
+    }    
 
     function toggleLabel(label) {
         if (!mail.labels) mail.labels = []
@@ -137,6 +148,23 @@ export function MailDetails() {
                     </div>
                 </div>
             )}
+            <div className="mail-thread">
+                {thread.length > 1 && thread.map((message, idx) => (
+                    <div key={message.id} className={`mail-message ${idx === thread.length - 1 ? 'current' : ''}`}>
+                        <div className="mail-message-header">
+                            <div className="mail-sender">
+                                <span><strong>{message.from}</strong></span>
+                                <span className="mail-date">{new Date(message.sentAt).toLocaleString()}</span>
+                            </div>
+                            <div className="mail-recipients">To: {message.to}</div>
+                        </div>
+                        <div className="mail-message-body">
+                            <p>{message.body}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
         </section>
     ) 
 }

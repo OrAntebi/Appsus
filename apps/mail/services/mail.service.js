@@ -309,7 +309,8 @@ export const mailService = {
     restore,
     getLoggedinUser,
     saveDraft,
-    toggleLabel
+    toggleLabel,
+    getMailThread
 }
 
 function query(filterBy = {}) {
@@ -466,7 +467,6 @@ function saveDraft(draftMail) {
     return Promise.resolve(draftMail)
 }
 
-
 function autoSaveDraft(draftMail) {
     setInterval(() => {
         saveDraft(draftMail)
@@ -547,7 +547,6 @@ export function archiveMail(mailId) {
 
     localStorage.setItem('mails', JSON.stringify(updatedMails))
 }
-
 
 export function getArchivedMails() {
     let storedMails = JSON.parse(localStorage.getItem('mails')) || []

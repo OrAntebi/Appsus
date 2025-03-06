@@ -38,7 +38,7 @@ export function NoteTodos({ note, editMode, onSaveNote }) {
                         </li>
                     ))}
                 </ul>
-                <button type="submit">שמור שינויים</button>
+                <button type="submit">Save</button>
             </form>
         )
     }

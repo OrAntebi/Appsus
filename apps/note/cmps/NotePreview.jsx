@@ -1,6 +1,6 @@
 import { SpecificNote } from './DynamicCmps/SpecificNote.jsx'
 
-export function NotePreview({ note, editMode, onSaveNote }) {
+export function NotePreview({ note, editMode, onSaveNote}) {
 
     return (
         <div className="note-preview flex column">

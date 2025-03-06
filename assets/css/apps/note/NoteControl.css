@@ -12,12 +12,10 @@
     transition: max-height 0.3s ease, opacity 0.3s ease;
 
     >* {
-        border-radius: 100vh;
         padding: .2em;
 
         &:hover {
-            scale: 1.05;
-            background-color: var(--hover-bg);
+            scale: 1.1;
             cursor: pointer;
         }
 
@@ -28,6 +26,5 @@
 }
 
 .note-card:hover .note-control {
-    /* max-height: 80px; */
     opacity: 1;
 }

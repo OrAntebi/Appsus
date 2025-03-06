@@ -2,7 +2,7 @@ import { NotePreview } from './NotePreview.jsx'
 import { NoteControl } from './NoteControl.jsx'
 import { EmptyTabMsg } from '../cmps/EmptyTabMsg.jsx'
 
-export function NoteList({ notes, title, editNoteId, toggleEditMode, onSaveNote, onSetBgColor, onTrash, onArchive, onPin, onRestore, onDeleteForever }) {
+export function NoteList({ notes, title, editNoteId, toggleEditMode, onSaveNote, onSetBgColor, onTrash, onArchive, onPin, onRestore, onDeleteForever, onEmail }) {
 
     if (notes.length === 0) return <EmptyTabMsg tabName={title || 'Notes'} />;
 
@@ -27,6 +27,7 @@ export function NoteList({ notes, title, editNoteId, toggleEditMode, onSaveNote,
                             onPin={() => onPin(note.id)}
                             onRestore={() => onRestore(note.id)}
                             onDeleteForever={() => onDeleteForever(note.id)}
+                            onEmail={() => onEmail(note.id)}
                         />
                     </article>
                 ))}

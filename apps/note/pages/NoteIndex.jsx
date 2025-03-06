@@ -1,14 +1,15 @@
+import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { Navigation } from '../cmps/Navigation.jsx'
 import { noteService } from '../services/note.service.js'
 import { NoteList } from '../cmps/NoteList.jsx'
-import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { UserMsg } from '../../../cmps/UserMsg.jsx'
 import { Loader } from '../cmps/Loader.jsx'
 import { NoteAdd } from '../cmps/NoteAdd.jsx'
+import { newMailFromNotes } from '../../../apps/mail/pages/MailCompose.jsx'
 
 const { useEffect, useState, Fragment } = React
-const { Routes, Route } = ReactRouterDOM
+const { Routes, Route, useNavigate } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
@@ -16,6 +17,7 @@ export function NoteIndex() {
     const [loader, setLoader] = useState(false)
     const [filter, setFilter] = useState('active')
     const [menuLock, setMenuLocked] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadNotes()
@@ -83,7 +85,6 @@ export function NoteIndex() {
                 setEditNoteId(null)
             })
     }
-
 
 
 
@@ -160,6 +161,13 @@ export function NoteIndex() {
             .catch(err => showErrorMsg(`Failed to restore note: ${err.message}`))
     }
 
+    function onEmail(noteId) {
+        noteService.getById(noteId)
+            .then(note => {
+                newMailFromNotes(note)
+                navigate('/mail')
+            })
+    }
 
     const pinnedNotes = notes.filter(note => note.isPinned)
     const unpinnedNotes = notes.filter(note => !note.isPinned)
@@ -190,6 +198,7 @@ export function NoteIndex() {
                                         onTrash={onTrash}
                                         onArchive={onArchive}
                                         onPin={onPin}
+                                        onEmail={onEmail}
                                     />}
                                     <NoteList
                                         notes={unpinnedNotes}
@@ -201,6 +210,7 @@ export function NoteIndex() {
                                         onTrash={onTrash}
                                         onArchive={onArchive}
                                         onPin={onPin}
+                                        onEmail={onEmail}
                                     />
                                 </Fragment>
                             }
@@ -217,6 +227,7 @@ export function NoteIndex() {
                                     onSetBgColor={onSetBgColor}
                                     onTrash={onTrash}
                                     onRestore={onRestore}
+                                    onEmail={onEmail}
                                 />}
                         />
                         <Route

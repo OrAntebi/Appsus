@@ -1,6 +1,6 @@
 const { Fragment } = React
 
-export function DynamicControls({ note, toggleEditMode, togglePalette, onArchive, onTrash, onPin, onRestore, onDeleteForever }) {
+export function DynamicControls({ note, toggleEditMode, togglePalette, onArchive, onTrash, onPin, onRestore, onDeleteForever, onEmail }) {
 
     switch (note.state) {
 
@@ -42,6 +42,13 @@ export function DynamicControls({ note, toggleEditMode, togglePalette, onArchive
                         alt="Pin "
                         onClick={onPin}
                     />
+                    <img
+                        key="email"
+                        src="assets/img/note/email.svg"
+                        title="Email"
+                        alt="Email "
+                        onClick={onEmail}
+                    />
                 </Fragment>
             );
 
@@ -75,6 +82,13 @@ export function DynamicControls({ note, toggleEditMode, togglePalette, onArchive
                         title="Trash"
                         alt="Trash "
                         onClick={onTrash}
+                    />
+                                        <img
+                        key="email"
+                        src="assets/img/note/email.svg"
+                        title="Email"
+                        alt="Email "
+                        onClick={onEmail}
                     />
                 </Fragment>
             );

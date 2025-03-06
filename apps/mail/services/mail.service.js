@@ -315,6 +315,11 @@ export const mailService = {
 
 function query(filterBy = {}) {
     let storedMails = JSON.parse(localStorage.getItem('mails')) || []
+
+    if (!storedMails.length) {
+        localStorage.setItem('mails', JSON.stringify(mails))
+        storedMails = mails
+    }
     
     let combinedMails = [...mails, ...storedMails]
     let uniqueMails = Array.from(
@@ -344,6 +349,8 @@ function query(filterBy = {}) {
                 !mail.sentAt && 
                 !mail.removedAt
             )
+        } else if (filterBy.status === 'archive') {
+            filteredMails = filteredMails.filter(mail => mail.isArchived)
         }
     }
 
@@ -405,22 +412,27 @@ function update(updatedMail) {
 }
 
 function remove(mailId) {
-    let storedMails = JSON.parse(localStorage.getItem('mails')) || mails
+    let storedMails = JSON.parse(localStorage.getItem('mails')) || []
 
     const mailIndex = storedMails.findIndex(mail => mail.id === mailId)
 
-    if (mailIndex === -1) return Promise.reject('Mail not found')
+    if (mailIndex === -1) {
+        console.error(`Mail with ID ${mailId} not found in localStorage`)
+        console.log('Current mails in localStorage:', storedMails)
+        return Promise.reject('Mail not found')
+    }
 
     if (storedMails[mailIndex].removedAt) {
-        storedMails.splice(mailIndex, 1) // Permanently delete
+        storedMails.splice(mailIndex, 1) // Hard delete
     } else {
-        storedMails[mailIndex].removedAt = Date.now() // Move to trash
+        storedMails[mailIndex].removedAt = Date.now() // Move to Trash
     }
 
     localStorage.setItem('mails', JSON.stringify(storedMails))
-    mails = storedMails 
 
-    return Promise.resolve()
+    mails = [...storedMails]
+
+    return Promise.resolve(storedMails)
 }
 
 function getLoggedinUser() {

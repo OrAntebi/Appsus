@@ -29,6 +29,13 @@
     align-items: center;
 }
 
+.sidebar.closed .toggle-btn{
+    margin-top: -45px;
+    margin-bottom: 15px;
+    transform: rotate(180deg);
+    margin-left: 15px;
+}
+
 .sidebar .toggle-btn {
     background: none;
     border: none;

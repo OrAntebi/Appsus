@@ -13,7 +13,7 @@ export function NoteTxt({ note, editMode, onSaveNote }) {
 
     if (editMode) {
         return (
-            <form className="flex column" onSubmit={handleSubmit}>
+            <form className="note-edit flex column" onSubmit={handleSubmit}>
                 <input value={title} onChange={e => setTitle(e.target.value)} />
                 <textarea value={txt} onChange={e => setTxt(e.target.value)} />
                 <button type="submit">Save</button>

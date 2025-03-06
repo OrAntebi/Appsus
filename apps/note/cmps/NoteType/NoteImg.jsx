@@ -12,7 +12,7 @@ export function NoteImg({ note, editMode, onSaveNote }) {
 
     if (editMode) {
         return (
-            <form className="flex column" onSubmit={handleSubmit}>
+            <form className="note-edit flex column" onSubmit={handleSubmit}>
                 <input value={title} onChange={e => setTitle(e.target.value)} />
                 <input value={url} onChange={e => setUrl(e.target.value)} />
                 <button type="submit">Save</button>

@@ -3,6 +3,47 @@
     flex-wrap: wrap;
     gap: 0.5em;
 
+    .note-edit {
+        gap: 1em;
+
+        input,
+        textarea {
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+            resize: none;
+
+            &:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+        }
+
+        button {
+            padding: .5em  1em;
+            font-size: 16px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:hover {
+                scale: 1.01;
+                background: #0056b3;
+            }
+
+            &:active {
+                scale: 1;
+            }
+        }
+    }
+
+
+
     .todo-item {
         display: flex;
         align-items: center;

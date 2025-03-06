@@ -92,11 +92,16 @@ export function MailIndex() {
     }
 
     function handleRemove(mailId) {
-        mailService.remove(mailId).then(() => {
-            setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
-        })
+        console.log('Attempting to remove mail with ID:', mailId) 
+    
+        mailService.remove(mailId)
+            .then(updatedMails => {
+                console.log('Updated mails after removal:', updatedMails)
+                setMails(updatedMails) 
+            })
+            .catch(err => console.error('Error removing mail:', err))
     }
-
+    
     function handleSelectAll(ev) {
         const isChecked = ev.target.checked
         setAllSelected(isChecked)

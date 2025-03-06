@@ -115,3 +115,30 @@
 .filters select:hover {
     border-color: #888;
 }
+
+@media (max-width: 768px) {
+    .mail-header {
+        display: none;
+    }
+
+    .mail-header-left {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .mail-header-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: none;
+        text-align: center;
+    }
+
+    .search-bar {
+        width: 90%;
+    }
+}

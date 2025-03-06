@@ -2,11 +2,15 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 12px;
+    padding: 5px 8px;
     border-bottom: 1px solid #ddd;
     width: 100%;
     position: relative;
     box-sizing: border-box;
+    height: auto;
+    min-height: 40px;
+    max-height: unset; 
+    overflow: hidden;
 }
 
 .mail-preview:hover {
@@ -18,7 +22,7 @@
 
 .mail-preview.read {
     background-color: #ffffff;
-    color: #777
+    color: #777;
 }
 
 .mail-preview.unread {
@@ -99,6 +103,7 @@
     font-size: 12px;
     color: #666;
     padding-right: 15px;
+    margin-left: auto;
 }
 
 .mail-preview:hover .mail-timestamp {
@@ -203,4 +208,18 @@
 .mail-checkbox:hover .tooltip {
     visibility: visible;
     opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .mail-preview {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        min-height: 160px;
+    }
+
+    .mail-left, .mail-content, .mail-timestamp {
+        width: 100%;
+        text-align: left;
+    }
 }

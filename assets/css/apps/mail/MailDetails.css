@@ -130,7 +130,6 @@
     cursor: pointer;
 }
 
-/* Add to MailDetails.css */
 .mail-thread {
     margin-top: 20px;
 }
@@ -192,5 +191,26 @@
 
 .mail-message-actions button:hover {
     background-color: rgba(26, 115, 232, 0.1);
+}
+
+@media (max-width: 768px) {
+    .mail-open {
+        max-width: 100%;
+        margin: 0;
+        padding: 10px;
+        border-radius: 0;
+    }
+    .mail-toolbar {
+        align-items: center;
+        gap: 10px;
+    }
+    .reply-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    .mail-message-actions {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 

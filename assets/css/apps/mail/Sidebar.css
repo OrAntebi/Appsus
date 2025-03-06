@@ -129,3 +129,39 @@
     transform: translateZ(0);
     -webkit-font-smoothing: antialiased;
 }
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+        padding-top: 10px;
+        z-index: 200;
+    }
+
+    .sidebar.open {
+        width: 200px;
+    }
+
+    .hamburger-menu {
+        display: block !important; 
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        background: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 26px;
+        cursor: pointer;
+    }
+
+    .sidebar .menu-item {
+        justify-content: center;
+    }
+
+    .app-header {
+        position: relative;
+        z-index: 500;
+    }
+
+}
+

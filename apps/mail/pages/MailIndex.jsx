@@ -11,7 +11,7 @@ export function MailIndex() {
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState({ txt: '', status: 'inbox', isRead: null })
     const [sortBy, setSortBy] = useState('date-newest')
-    const [isSideBarOpen, setIsSidebarOpen] = useState(true)
+    const [isSideBarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768)
     const [isLoading, setIsLoading] = useState(true)
     const [isComposing, setIsComposing] = useState(false)
     const navigate = useNavigate()

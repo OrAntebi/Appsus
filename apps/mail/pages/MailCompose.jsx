@@ -70,8 +70,6 @@ export function MailCompose({ onClose }) {
                 <header className="compose-header">
                     <span>New Message</span>
                     <div className="compose-controls">
-                        <button className="minimize-btn">_</button>
-                        <button className="maximize-btn">□</button>
                         <button className="close-btn" onClick={discardDraft}>×</button>
                     </div>
                 </header>

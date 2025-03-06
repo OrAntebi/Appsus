@@ -84,4 +84,48 @@ html, body {
     transform: scale(1);
 }
 
+@media (max-width: 768px) {
+    .mail-header {
+        flex-direction: column; 
+        align-items: center;
+        padding: 10px;
+    }
+
+    .mail-list-container {
+        width: 100%; 
+        margin-left: 0;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .mail-preview {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        min-width: auto;
+    }
+
+    .mail-content{
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: normal;
+        overflow: visible;
+        word-wrap: break-word;
+    }
+
+    .mail-timestamp {
+        position: static;
+        text-align: left;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .mail-preview input[type="checkbox"] {
+        display: none;
+    }
+}
+
+
 

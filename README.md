@@ -1,3 +1,2 @@
 # Appsus
 
-## React Project

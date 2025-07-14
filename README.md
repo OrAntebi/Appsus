@@ -56,7 +56,7 @@ Built using **Vanilla React.js**, focusing on a clean UI, flexible note types, a
    ```bash
    git clone https://github.com/OrAntebi/Appsus.git
 
-## 📸 Screenshot
+## 📸 Screenshots
 
 Here are some screenshots from the project:
 

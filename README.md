@@ -1,4 +1,4 @@
-# 🗒️ Miss Keep — React Note Taking App (Part of Appsus Project)
+# 🗒️ Miss Keep — Note Taking App (Part of Appsus Project)
 
 This repository is part of a larger project called **Appsus**, which includes multiple mini-applications.  
 👉 **My personal focus and responsibility within this project is specifically the _Miss-Keep_ app (notes management system).**
